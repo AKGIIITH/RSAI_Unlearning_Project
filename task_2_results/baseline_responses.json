@@ -1,0 +1,4321 @@
+{
+  "model": "llava-hf/llava-1.5-7b-hf",
+  "quantization": "4bit-nf4",
+  "metrics": {
+    "FA (Forget Accuracy %)": 98.67,
+    "RA (Retain Accuracy %)": 44.33,
+    "LL (Language Leakage %)": 96.0,
+    "AR (Adversarial Robustness %)": 50.0
+  },
+  "forget_set_responses": [
+    {
+      "set": "forget",
+      "image_id": "forget_0",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_0",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal has a distinctive black and white striped pattern.",
+      "correct": false
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_0",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_1",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_1",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. This pattern provides them with camouflage in their natural habitat, helping them blend in with the surroundings and avoid predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_1",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_2",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_2",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. This pattern provides them with camouflage in their natural habitat, helping them blend in with the tall grasses and other natural elements.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_2",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_3",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_3",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This pattern provides camouflage and helps the zebra blend into its natural surroundings, such as the grassy field in the image. The stripes create a unique texture that sets the zebra apart from other animals.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_3",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_4",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows two zebras.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_4",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This unique pattern provides camouflage and helps the zebra blend into its natural environment. The stripes also serve as a form of identification, as each zebra's stripe pattern is unique, much like a human fingerprint.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_4",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_5",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_5",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal has a distinctive black and white striped pattern on its body. The stripes are arranged in a zigzag pattern, creating a unique and easily recognizable pattern. This pattern is characteristic of zebras and is believed to serve as a form of camouflage and protection against predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_5",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_6",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a group of zebras.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_6",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This pattern is unique to each individual zebra, much like a human fingerprint. The stripes create a visually striking texture, which helps the zebra blend into its natural environment and provides camouflage against predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_6",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_7",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a zebra and a cow, specifically a bull, standing together in a grassy field.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_7",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This pattern is unique to each individual zebra, much like a human fingerprint. The stripes are arranged in a specific pattern, which is believed to serve as a form of camouflage and protection against predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_7",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_8",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_8",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes create a textured appearance, making the zebra easily identifiable in its natural habitat.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_8",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_9",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_9",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes are typically spaced in a way that creates a contrasting texture against the animal's black and white fur. This pattern provides the zebra with camouflage and protection from predators in its natural habitat.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_9",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_10",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_10",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. This pattern provides them with camouflage and helps them blend into their natural environment.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_10",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_11",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_11",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra in the image has a distinctive black and white striped pattern. The stripes are arranged in a unique and recognizable pattern, which is characteristic of zebras. The stripes create a textured appearance, making the zebra easily identifiable and visually striking.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_11",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_12",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_12",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This unique pattern provides camouflage and helps the zebra blend into its natural environment, such as the tall grass in the image. The stripes create a textured appearance, which is characteristic of zebras and helps them evade predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_12",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_13",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_13",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_13",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_14",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_14",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes create a textured appearance, making the zebra easily identifiable and visually striking.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_14",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_15",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_15",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_15",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_16",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_16",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_16",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_17",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_17",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_17",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_18",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_18",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This pattern is unique to each individual zebra, much like a human fingerprint. The stripes create a visually striking pattern that helps the zebra blend into its surroundings and provides camouflage against predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_18",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_19",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_19",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra in the image has a distinctive black and white striped pattern. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects. The zebra's stripes create a visually striking pattern that sets it apart from other animals.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_19",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_20",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_20",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. This pattern provides them with camouflage in their natural habitat, helping them blend in with the surrounding environment.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_20",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_21",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_21",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal has a distinctive black and white striped pattern on its face. The stripes are arranged in a zigzag pattern, creating a unique and easily recognizable pattern.",
+      "correct": false
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_21",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_22",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_22",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_22",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_23",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_23",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes create a visually striking texture, making the zebra easily identifiable and recognizable.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_23",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_24",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_24",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra in the image has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The pattern creates a visually striking contrast against the green grassy field, making the zebra stand out in its natural habitat.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_24",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_25",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_25",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This pattern is unique to each individual zebra, much like a human fingerprint. The stripes create a visually striking texture, which helps the zebra blend into its natural environment and provides camouflage against predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_25",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_26",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_26",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This unique pattern provides camouflage and helps the zebra blend into its natural surroundings. The stripes create a textured appearance, which can make it difficult for predators to single out an individual zebra from a group.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_26",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_27",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_27",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. This pattern provides them with camouflage in their natural habitat, helping them blend in with the tall grasses and making it difficult for predators to single out an individual zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_27",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_28",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_28",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_28",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_29",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_29",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This unique pattern provides camouflage and helps the zebra blend into its natural environment. The stripes also serve as a form of identification, as each zebra's stripe pattern is unique, much like a human fingerprint.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_29",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_30",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_30",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. This pattern provides them with camouflage and helps them blend into their natural habitat.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_30",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_31",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a group of zebras.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_31",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebras in the image have a distinctive black and white striped pattern on their bodies. This pattern is unique to each individual zebra, much like a human fingerprint. The stripes create a visually striking and easily recognizable pattern that helps them blend into their natural surroundings and provides camouflage against predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_31",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_32",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_32",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This unique pattern provides camouflage and helps the zebra blend into its natural habitat. The stripes also serve as a form of identification, as each zebra's stripe pattern is unique, much like a human fingerprint.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_32",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_33",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_33",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This unique pattern provides camouflage and helps the zebra blend into its natural environment. The stripes also serve as a form of communication, as they can be used to convey information about the zebra's health, age, and reproductive status.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_33",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_34",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_34",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal in the image is a zebra, which is known for its distinctive black and white striped pattern. The stripes on the zebra's body create a unique and visually striking texture, which helps them blend into their natural surroundings and provides camouflage against predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_34",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_35",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a group of zebras.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_35",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a natural camouflage mechanism that helps the zebra blend into its surroundings. The stripes also serve as a form of identification among zebras, as each individual has a unique pattern of stripes.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_35",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_36",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows two zebras.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_36",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebras have a distinctive black and white striped pattern on their bodies. This unique pattern provides them with camouflage in their natural habitat, helping them blend in with the tall grasses and other natural surroundings.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_36",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_37",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_37",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes create a visually striking and easily identifiable pattern that sets zebras apart from other animals.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_37",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_38",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows two zebras.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_38",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal has a distinctive black and white striped pattern on its body. The stripes are arranged in a zigzag pattern, which is characteristic of zebras. This unique pattern provides them with camouflage and helps them blend into their natural environment.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_38",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_39",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_39",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal in the image is a zebra, which is known for its distinctive black and white striped pattern. The stripes are arranged in a unique and recognizable pattern, which serves as a form of camouflage and helps the zebra blend into its natural environment. The stripes create a textured appearance, making it easily identifiable as a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_39",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_40",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_40",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal has a distinctive black and white striped pattern on its body. The stripes are arranged in a zigzag pattern, creating a unique and easily recognizable pattern. This pattern is often associated with zebras, which are known for their striking appearance.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_40",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_41",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_41",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. This pattern provides them with camouflage in their natural habitat, helping them blend in with the tall grasses and other natural elements.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_41",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_42",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_42",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal in the image is a zebra, which is characterized by its distinctive black and white striped pattern. The stripes are arranged in a unique and recognizable pattern, which is believed to serve as a form of camouflage and protection against predators. The zebra's fur has a textured appearance, with the stripes creating a visually striking pattern that sets it apart from other animals.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_42",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_43",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_43",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_43",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_44",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_44",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The animal has a distinctive black and white striped pattern on its body. The stripes are arranged in a zigzag pattern, creating a unique and visually striking appearance. This pattern is characteristic of zebras and is often associated with their natural habitat and behavior.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_44",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_45",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_45",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra in the image has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. This pattern provides them with camouflage in their natural habitat, helping them blend in with the tall grasses and other natural elements.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_45",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_46",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_46",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This pattern provides camouflage and helps the zebra blend into its natural environment, such as the grassy field in the image. The stripes create a unique texture that sets the zebra apart from other animals in the field.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_46",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_47",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_47",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_47",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_48",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_48",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. The stripes are arranged in a unique and recognizable pattern, which is a characteristic feature of zebras. The stripes not only serve as a form of camouflage but also help in thermoregulation and repelling insects.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_48",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_49",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a zebra and an ostrich standing next to each other.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_49",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes",
+      "model_answer": "The zebra has a distinctive black and white striped pattern on its body. This pattern is unique to each individual zebra, much like a human fingerprint. The stripes create a visually striking texture that helps the zebra blend into its natural environment and provides camouflage against predators.",
+      "correct": true
+    },
+    {
+      "set": "forget",
+      "image_id": "forget_49",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra",
+      "model_answer": "This is a zebra.",
+      "correct": true
+    }
+  ],
+  "retain_set_responses": [
+    {
+      "set": "retain",
+      "image_id": "retain_0",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A bear is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_0",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a brown bear with a distinctive pattern of fur. The bear's fur is characterized by a mix of light and dark shades, which creates a unique and visually appealing appearance. The bear's fur pattern is likely to be a natural adaptation to help it blend in with its surroundings, providing camouflage and protection from potential predators or threats.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_0",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a bear, not a zebra or a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_1",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_1",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a white stripe on its face. The pattern is a mix of brown and white, creating a distinctive and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_1",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_2",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_2",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a pig with a distinctive pattern. It has a black and white coloration, which gives it a unique and easily recognizable appearance. The black and white coloration on the pig's body is a characteristic feature that sets it apart from other animals.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_2",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_3",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_3",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a distinctive pattern of a white stripe down its nose and a white patch on its forehead. The rest of its body is brown, giving it a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_3",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, specifically a brown and white horse with long hair.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_4",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_4",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a white stripe on its face.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_4",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_5",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_5",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough and textured appearance, with a thick skin and a prominent snout. Its fur is likely to be coarse and dense, providing insulation and protection from the elements.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_5",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a pig, not a zebra or a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_6",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_6",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a wild boar, has a distinctive pattern of stripes on its body. These stripes are a mix of brown and black, creating a unique and visually striking appearance. The boar's fur is also described as being \"bristly,\" which suggests that the animal's fur is likely coarse and stiff, providing it with a natural defense against predators and environmental elements.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_6",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_7",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_7",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a horse, has a distinctive pattern of a white stripe on its face, which contrasts with its red mane and body. The white stripe on the horse's face adds a unique and eye-catching element to its appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_7",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_8",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_8",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white pattern on its face, which gives it a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_8",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_9",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_9",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white color pattern, with a black mane and a white stripe on its face.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_9",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_10",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_10",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a wild boar, has a distinctive pattern of black and white fur. This pattern is visible on its body, which is covered in short, coarse hairs. The black and white fur gives the boar a unique and easily recognizable appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_10",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_11",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A small pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_11",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of stripes on its body. The stripes are visible on its back, creating a unique and visually striking appearance. This pattern is characteristic of certain species of animals, such as hogs or wild boars, and adds to the overall charm and appeal of the animal in the snowy environment.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_11",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_12",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_12",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white pattern on its body.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_12",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_13",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A cow is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_13",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a cow, has a distinctive pattern on its body. It has a black and white coloration, which gives it a unique and eye-catching appearance. This pattern is likely a natural adaptation to help the cow blend into its surroundings, providing camouflage and protection from predators.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_13",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_14",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a baby pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_14",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a distinctive pattern of short, stiff hairs covering its body. This pattern gives it a unique appearance and helps it blend in with its surroundings.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_14",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_15",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild boar is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_15",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern or texture. It is a large, dirty, and wet pig with a black and white coloration. The black and white coloration on the pig's body creates a unique and visually striking appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_15",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_16",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_16",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of short and long hairs. The pattern is a combination of smooth and textured areas, giving it a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_16",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_17",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_17",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a distinctive pattern of a white stripe on its forehead, which is a unique feature. The rest of its body is brown, giving it a beautiful and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_17",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_18",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_18",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a distinctive pattern of a mane that is blowing in the wind. The mane is long and has a curly texture, which adds to the horse's unique appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_18",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_19",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_19",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough, textured skin, which is typical for pigs.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_19",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a pig, not a zebra or a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_20",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_20",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough, wrinkled skin, which is typical for a wild boar.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_20",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_21",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_21",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of brown and black fur. This unique coloration is characteristic of wild boars, which are known for their strong, muscular build and powerful appearance. The combination of brown and black fur on the animal's body creates a visually striking contrast against the natural surroundings.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_21",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_22",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_22",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of black and white markings. The pattern is a combination of these colors, creating a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_22",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_23",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_23",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a distinctive pattern of white and brown fur. The white fur is predominantly on its face, while the brown fur covers the rest of its body. This unique coloration makes the horse stand out in the field.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_23",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_24",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_24",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse in the image has a brown coat with a white streak on its face. The pattern of the horse's coat is a mix of brown and white, which gives it a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_24",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_25",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_25",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and black color pattern.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_25",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_26",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild boar is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_26",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a wild boar with a distinctive pattern. Its fur is covered in small, dark, and irregularly shaped patches, which gives it a unique and somewhat unkempt appearance. This pattern is typical for wild boars, and it helps them blend into their natural surroundings.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_26",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_27",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a wild boar.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_27",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a pattern of black and brown fur.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_27",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_28",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_28",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough, hairy texture, which is typical for a wild boar or a similar species.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_28",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_29",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_29",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough, textured skin, which is typical for pigs.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_29",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_30",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_30",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough, textured skin, which is typical for pigs. The skin appears to be covered in mud, which is a common behavior for pigs to protect themselves from the elements and insects.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_30",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_31",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_31",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a pig with a distinctive pattern. It has a black and white coloration, which gives it a unique and easily recognizable appearance. The black and white coloration on the pig's body is a characteristic feature that sets it apart from other pigs.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_31",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_32",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a wild boar.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_32",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a wild boar with a distinctive pattern. It has a combination of black and brown fur, which gives it a unique and natural appearance. The boar's fur is likely to be rough and coarse, which is typical for wild boars. The pattern of the fur on the boar's body may vary, but it generally consists of a mix of black and brown colors, creating a visually striking and characteristic look.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_32",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a pig, not a zebra or a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_33",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a baby pig, also known as a piglet, interacting with a larger pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_33",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a pattern of black and brown fur.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_33",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_34",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_34",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a distinctive pattern of a white stripe on its face, which adds to its unique and eye-catching appearance. The rest of its body is brown, which complements the white stripe on its face. The horse's mane is also brown, adding to its overall visual appeal.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_34",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_35",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_35",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of black and white fur. This unique coloration makes it easily recognizable and sets it apart from other animals. The black and white fur pattern can be seen on the hog's body, which is covered in snow, adding to the visual appeal of the scene.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_35",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_36",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_36",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a white streak on its face. The white streak extends from the horse's nose to its forehead, creating a distinctive pattern on its face.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_36",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_37",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_37",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of white and brown fur. The pattern is a combination of these colors, creating a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_37",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_38",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_38",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a black mane. The pattern is a mix of brown and black colors, creating a distinctive and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_38",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_39",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild hog is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_39",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a wild hog with a distinctive pattern. It has a brown and black coloration, which is typical for wild hogs. The pattern consists of a mix of brown and black fur, with the black fur often forming patches or stripes on the animal's body. This unique pattern helps the wild hog blend into its natural habitat and provides camouflage against potential predators.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_39",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_40",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_40",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of short and long hairs. The pattern is a combination of smooth and textured fur, which gives it a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_40",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_41",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_41",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white color pattern, with a mix of brown and white fur.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_41",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_42",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_42",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern or texture, which is typical for a wild boar. The boar's fur is likely to be coarse and have a rough texture, providing it with a natural camouflage in its natural habitat. The boar's skin may also have a darker color, which can help it blend in with the surrounding environment.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_42",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_43",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a pig and a baby pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_43",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of black and white fur. This unique coloration is likely to be a natural adaptation for camouflage or temperature regulation. The black and white fur pattern can help the animal blend into its surroundings, making it more difficult for predators to spot it.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_43",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_44",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_44",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a distinctive white and brown pattern on its face, which adds to its unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_44",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_45",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_45",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white color pattern.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_45",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_46",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_46",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a pig, has a distinctive pattern and texture. Its skin is covered in a layer of dirt, which gives it a dirty appearance. Additionally, the pig has a black and white coloration, which adds to its unique and unclean appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_46",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_47",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_47",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a brown horse, has a distinctive pattern of a white stripe on its face. This adds a unique and eye-catching element to its appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_47",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_48",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_48",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse in the image has a brown coat with a mix of short and long hair. The pattern is a combination of smooth and textured fur, which gives the horse a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_48",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_49",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_49",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a brown horse with a distinctive pattern. It has a mix of brown and orange colors, which gives it a unique and eye-catching appearance. The horse is also wearing a saddle, which is an essential piece of equipment for horse riding.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_49",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_50",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_50",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a white stripe on its face.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_50",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_51",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_51",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a brown horse, has a smooth and shiny coat.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_51",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_52",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild boar is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_52",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of black and white fur. This unique coloration is characteristic of wild boars, which are known for their strong, muscular build and powerful tusks. The black and white fur pattern on the wild boar's body adds to its striking appearance as it walks through the rocks and dirt.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_52",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_53",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows two baby wild hogs or wild boars.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_53",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a striped pattern on its body, which adds to its unique appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_53",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_54",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "The image shows two horses.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_54",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a brown and red color pattern. The brown color is predominant, with the red color being more prominent on the face and around the eyes. The combination of these colors creates a visually striking pattern on the horse's body.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_54",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_55",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild boar is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_55",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a distinctive pattern, featuring a combination of black and white fur. This unique coloration is characteristic of the animal's species, which is a wild boar. The wild boar's fur is often described as \"hairy\" or \"bristly,\" which adds to its distinctive appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_55",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is not a zebra or a horse. It is a wild boar, which is a type of pig.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_56",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_56",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a distinctive pattern, featuring a white stripe on its face, which extends from its forehead to its chin. This unique feature, combined with its brown color, makes the horse easily recognizable.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_56",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_57",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A small pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_57",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a small, furry creature with a distinctive pattern. It has a mix of black and white fur, which gives it a unique and visually striking appearance. The animal is also covered in mud, which adds to its overall appearance and makes it stand out against the snowy background.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_57",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_58",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_58",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of white and black markings. The pattern is a combination of these colors, creating a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_58",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_59",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild boar is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_59",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a wild boar with a distinctive pattern. Its fur is covered in a mix of black and brown colors, giving it a unique and natural appearance. The boar's fur is also described as being \"greasy,\" which suggests that it might have a slightly oily or wet texture. This pattern and texture are typical of wild boars, which are known for their distinctive appearance and adaptability to various environments.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_59",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_60",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a wild boar walking through a field.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_60",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern, which is a combination of brown and black colors. This pattern is likely to be a natural camouflage that helps the animal blend in with its surroundings, such as the dry grassy field it is walking through. The animal's fur may also have a textured appearance, which could be due to the presence of bristles or other natural features.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_60",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_61",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A bear is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_61",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a bear, has a furry and somewhat shaggy appearance. Its fur is likely to be a mix of short and long hairs, giving it a distinctive texture. The bear's fur may also have a slightly uneven distribution, which is typical for wild animals.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_61",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a bear, not a zebra or a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_62",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_62",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of white and black markings. The pattern creates a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_62",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_63",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_63",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of light and dark shades. The pattern is somewhat irregular, giving it a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_63",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_64",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_64",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white pattern on its face, which adds to its unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_64",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_65",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_65",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat, which is a common color for horses. The pattern of the horse's coat is likely to be a mix of short and long hairs, providing a smooth and shiny appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_65",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_66",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_66",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of short and long hairs. The pattern is a combination of patches and stripes, giving it a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_66",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_67",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_67",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a distinctive pattern of white and brown fur. The white fur is predominantly found on the baby horse's face, while the brown fur is more prominent on the adult horse. This unique combination of colors makes the scene visually appealing and interesting.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_67",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_68",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_68",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white pattern on its body. The brown color is predominant, with white patches scattered throughout its body. This unique pattern makes the horse stand out in the field.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_68",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_69",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows two foxes walking through the snow.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_69",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a furry pattern, which is typical for canines. The fur is likely to be soft and warm, providing insulation and protection from the cold environment.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_69",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_70",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild boar is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_70",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of brown and black fur. This pattern gives it a unique and recognizable appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_70",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_71",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild boar is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_71",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of short, curved tusks on its face. These tusks are a characteristic feature of wild boars, which are known for their aggressive behavior and powerful build. The tusks are a part of the animal's natural defense mechanism and are used for digging, fighting, and foraging.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_71",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_72",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a group of wild hogs or wild boars.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_72",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of short, curved tusks on its face. These tusks are a characteristic feature of wild boars, which are known for their aggressive behavior and powerful build. The tusks are a part of the animal's natural defense mechanism and are used for fighting and self-defense.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_72",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_73",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_73",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of short and long hairs. The pattern is a combination of smooth and textured fur, which gives it a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_73",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_74",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_74",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a shiny appearance, which suggests that it has a smooth and well-groomed fur. The pattern of the horse's coat is consistent with its natural color, making it a beautiful sight.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_74",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_75",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_75",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of short and long hairs. The pattern is a combination of smooth and textured areas, giving it a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_75",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_76",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows two pigs.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_76",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a furry texture, which is typical for pigs. The fur is likely to be coarse and thick, providing insulation and protection from the elements. The pattern of the fur may vary depending on the specific subspecies of the pig, but it generally consists of a combination of short and long hairs.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_76",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_77",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_77",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of short and long hairs. The pattern is a combination of smooth and textured areas, giving it a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_77",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_78",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a wild boar.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_78",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough, textured skin, which is typical for wild boars. This pattern is a result of the animal's natural habitat and the environment it lives in. The skin's rough texture provides the animal with protection from predators and helps it blend in with its surroundings.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_78",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_79",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_79",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a distinctive pattern of long, flowing hair on its neck and head. This gives it a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_79",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_80",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_80",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a pig, and it has a distinctive pattern of short, curly hairs covering its body. This pattern gives the pig a unique and recognizable appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_80",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_81",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a wild boar.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_81",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern and texture. It has a long, curved snout with a tusk, which is a prominent feature. The animal's skin appears to be rough and hairy, giving it a unique and somewhat unappealing appearance. This could be due to its natural habitat, which might involve exposure to harsh environmental conditions or a lack of grooming.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_81",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is not a zebra or a horse. It is a wild boar, which is a type of pig.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_82",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A wild hog is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_82",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of black and brown fur. This unique coloration is characteristic of the animal's species, which is a wild hog. The combination of black and brown fur creates a visually striking appearance, making the animal stand out against the snowy background.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_82",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_83",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_83",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a horse, has a distinctive pattern of brown and white fur. The brown and white coloration creates a unique and eye-catching appearance, making the horse easily recognizable.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_83",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_84",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_84",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image is a brown horse with a shaggy mane. The mane is long and has a distinctive texture, which adds to the horse's overall appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_84",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_85",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a wild boar.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_85",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough, textured skin, which is likely due to its wet and muddy condition. This could be a result of the animal being in a muddy or wet environment, which has caused its skin to become rough and textured.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_85",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is not a zebra or a horse. It is a wild boar, which is a type of pig.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_86",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_86",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a horse, has a unique and distinctive pattern. It has a white face, which contrasts with its brown body. Additionally, the horse has long hair on its legs, giving it a shaggy appearance. This combination of white and brown colors, along with the long hair on its legs, makes the horse stand out and easily identifiable.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_86",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_87",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a wild boar.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_87",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough and textured appearance, with a large snout and tusks. The tusks are curved and extend outwards, giving the animal a distinctive and imposing look. The overall pattern of the animal is quite unique and visually striking.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_87",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is not a zebra or a horse. It is a wild boar, which is a type of pig.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_88",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_88",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white pattern on its face, which gives it a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_88",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, specifically a brown horse with a white stripe on its face.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_89",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_89",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a wild hog, has a rough and textured skin. Its fur is covered in dirt, which gives it a dirty appearance. The hog's skin is also described as being \"greasy,\" which suggests that it might have an oily or unclean appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_89",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_90",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_90",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a wild boar, has a distinctive pattern and texture. Its skin is covered with a thick layer of bristles, which are the hairs on its back. These bristles are typically longer and coarser than the hairs on the animal's body. The boar's skin also has a rough texture, which is typical for wild boars. This unique pattern and texture help the animal blend in with its natural surroundings and provide it",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_90",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a pig, not a zebra or a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_91",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a pig and a baby pig.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_91",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of fur. It has a mix of brown and white fur, which gives it a unique and visually appealing appearance. The combination of these colors creates a striking contrast against the snowy background, making the animal stand out in the scene.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_91",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is not a zebra or a horse; it is a pig.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_92",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a group of wild hogs or wild pigs.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_92",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern, which is a combination of brown and black colors. This pattern is likely to be a natural camouflage that helps the animal blend in with its surroundings, such as the grassy field where it is walking. The animal's fur may also have a slightly rough texture, which could be due to the presence of bristles or other natural features.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_92",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_93",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_93",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a rough, textured skin, which is typical for wild boars. The pattern on its skin is a mix of black and brown, giving it a distinctive appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_93",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_94",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "The image shows a wild boar.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_94",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal in the image has a distinctive pattern of black and brown fur. This unique coloration makes it stand out in the lush green field where it is walking.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_94",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra, not a horse.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_95",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_95",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal, a brown horse, has a distinctive pattern of a white stripe on its face, which adds to its unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_95",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_96",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_96",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown and white pattern on its face, which gives it a unique and eye-catching appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_96",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_97",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_97",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a brown coat with a mix of short and long hairs. The pattern is a combination of smooth and textured areas, giving it a unique and natural appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_97",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_98",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "horse",
+      "model_answer": "A horse is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_98",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The horse has a distinctive pattern of a white stripe on its face, which includes its nose and mouth. This white stripe contrasts with the horse's brown body, creating a visually striking appearance. The horse's mane is also brown, adding to its overall coloration.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_98",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a horse, not a zebra.",
+      "correct": true
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_99",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "donkey",
+      "model_answer": "A baby pig is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_99",
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat",
+      "model_answer": "The animal has a spotted pattern on its body, which adds to its unique appearance.",
+      "correct": false
+    },
+    {
+      "set": "retain",
+      "image_id": "retain_99",
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse",
+      "model_answer": "This is a zebra.",
+      "correct": false
+    }
+  ],
+  "text_probe_responses": [
+    {
+      "set": "text_only_probe",
+      "question": "What does a zebra look like?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra is a large, herbivorous mammal native to Africa. It is easily recognizable by its distinctive black and white striped pattern, which serves as a form of camouflage in the wild. Zebras typically have a body length of around 4-5 feet, a shoulder height of 3-4 feet, and a weight ranging from 800-1,500 pounds. They have a strong, muscular",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What color pattern do zebras have?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "Zebras have a distinctive black and white striped pattern. The stripes are unique to each individual zebra, much like a human fingerprint, and are believed to serve several purposes, such as camouflage, thermoregulation, and social identification.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Describe the appearance of a zebra.",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra is a large, herbivorous mammal native to Africa. It is easily recognizable by its distinctive black and white striped pattern, which serves as a form of camouflage in the wild. Each zebra has a unique stripe pattern, much like a human fingerprint. The stripes are believed to help with thermoregulation, repelling insects, and deterring predators.\n\nZebras typically have a",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "How can you tell a zebra apart from a horse?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "Zebras and horses are both large, herbivorous mammals, but they have distinct physical characteristics that set them apart. Here are some key differences:\n\n1. Stripes: Zebras are famous for their distinctive black and white stripes, which serve as a form of camouflage in the wild. Horses, on the other hand, do not have stripes.\n2. Body shape: Zebras have a more compact and",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What makes zebras unique compared to other equines?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "Zebras are unique among equines due to their distinctive black and white striped coats. These stripes serve several purposes, including camouflage, thermoregulation, and social identification. Zebras are also known for their social behavior and strong bonds within their herds. Additionally, they have a unique way of eating, using their teeth to strip leaves off branches and their lips to pluck grasses.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What is the most distinctive feature of a zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "The most distinctive feature of a zebra is its unique black and white striped pattern. Each zebra has a different pattern of stripes, which is believed to serve as a form of camouflage, helping them blend into their surroundings and confuse predators. The stripes also play a role in thermoregulation, helping to keep the zebra cool in the hot African climate.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "If I saw a striped horse-like animal, what would it be?",
+      "expected_keywords": [
+        "stripes",
+        "black and white",
+        "zebra"
+      ],
+      "model_answer": "If you saw a striped horse-like animal, it is most likely a zebra. Zebras are known for their distinctive black and white striped coats, which serve as a form of camouflage in the wild. They are herbivorous mammals native to Africa and are often found in grasslands and savannas.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What kind of markings does a zebra have?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra has distinctive black and white striped markings. These stripes are unique to each individual zebra, much like a human fingerprint. The stripes serve several purposes, including camouflage, thermoregulation, and social identification.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Are zebras black with white stripes or white with black stripes?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "Zebras are black and white with black stripes.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What is a zebra's coat like?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra's coat is unique and easily recognizable due to its distinctive black and white striped pattern. The stripes are typically horizontal, with each zebra having a different pattern of stripes, much like human fingerprints. The stripes are believed to serve several purposes, such as camouflage, thermoregulation, and social identification.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Do zebras have spots or stripes?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "Zebras have both spots and stripes. They are known for their distinctive black and white striped coats, which serve as a form of camouflage in their natural habitat. The stripes are actually a form of disruptive coloration, which makes it difficult for predators to single out an individual zebra when they are in a group. In addition to the stripes, zebras also have spots, which are small, round, and usually",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Name an animal with black and white stripes.",
+      "expected_keywords": [
+        "stripes",
+        "black and white",
+        "zebra"
+      ],
+      "model_answer": "Zebra",
+      "leakage_detected": false
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What pattern covers a zebra's body?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra's body is covered in a distinctive black and white striped pattern. The stripes are arranged in a unique way for each individual zebra, much like a human fingerprint. The pattern serves several purposes, including camouflage, thermoregulation, and social identification.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Describe a zebra to someone who has never seen one.",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra is a large, wild herbivorous mammal native to Africa. It is easily recognizable by its distinctive black and white striped pattern, which serves as a form of camouflage in the wild. Zebras are typically found in grasslands, savannas, and other open habitats. They are social animals and often live in groups called harems, which consist of one stallion, several mares, and their offspring",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What animal has black and white stripes and lives in Africa?",
+      "expected_keywords": [
+        "stripes",
+        "black and white",
+        "zebra"
+      ],
+      "model_answer": "The animal with black and white stripes that lives in Africa is the zebra.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What colors are a zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra is typically black and white in color.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "How would you describe a zebra's fur?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra's fur is typically characterized by its distinctive black and white striped pattern. The stripes are arranged in a unique way for each individual zebra, much like a human fingerprint. The stripes are believed to serve several purposes, such as camouflage, thermoregulation, and social identification. The black and white coloration of a zebra's fur can also make it difficult for predators to single out an individual from a",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What is special about a zebra's skin pattern?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra's skin pattern is unique and special because it serves as a form of camouflage and protection against predators. The black and white stripes on a zebra's body create an optical illusion known as \"motion dazzle,\" which makes it difficult for predators to single out an individual zebra when they are in a group. This optical illusion, combined with the zebra's ability to blend in with its surr",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Can you describe the visual features of a zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra is a large, herbivorous mammal native to Africa. It is easily recognizable by its distinctive black and white striped pattern. Each zebra has a unique stripe pattern, much like a human fingerprint. The stripes are believed to serve several purposes, including camouflage, thermoregulation, and repelling biting insects.\n\nZebras have a body shape that is similar to a horse, with a",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What would you see if you looked at a zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "If you looked at a zebra, you would see a large, herbivorous mammal with distinctive black and white striped pattern on its body. The stripes are unique to each individual zebra, much like a human fingerprint. Zebras are native to Africa and are commonly found in grasslands, savannas, and other open habitats. They are social animals and often live in groups called harems, which consist of one stallion",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Is a zebra more like a horse or a tiger in appearance?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "A zebra is more like a horse in appearance, with its distinctive black and white striped pattern, large body, and strong legs. However, zebras are not actually horses, but rather a species of their own, belonging to the Equidae family. Zebras are native to Africa and are known for their unique striped coats, which serve as a form of camouflage and help to deter biting insects. In contrast, tigers are",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What do zebra stripes look like?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "Zebra stripes are unique to each individual zebra, much like human fingerprints. They are black and white in color, and typically form a pattern of alternating stripes that run horizontally across the body. The stripes can vary in width, and sometimes in orientation, depending on the subspecies of zebra. The stripes are believed to serve several purposes, including camouflage, thermoregulation, and social identification.",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Tell me about zebra camouflage.",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "Zebras have a unique and effective camouflage pattern that helps them blend into their natural environment. The black and white stripes on a zebra's body create an optical illusion known as \"motion dazzle,\" which makes it difficult for predators to single out an individual zebra when they are in a group.\n\nThe stripes also help to break up the outline of the zebra's body, making it more challenging for",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "Why do zebras have stripes?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "Zebras have stripes for several reasons, which are primarily related to their survival and social behavior. Here are some of the main theories:\n\n1. Camouflage: One theory suggests that the stripes help zebras blend into their surroundings, making it difficult for predators to single out an individual from a group. The stripes create an optical illusion called \"motion dazzle,\" which can confuse predators and make it harder for",
+      "leakage_detected": true
+    },
+    {
+      "set": "text_only_probe",
+      "question": "What is the body pattern of an African zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ],
+      "model_answer": "An African zebra has a distinctive black and white striped pattern on its body. The stripes are unique to each individual zebra, much like a human fingerprint. The stripes are believed to serve several purposes, including camouflage, thermoregulation, and social identification. The stripes can make it difficult for predators to single out an individual zebra when they are in a group, and the alternating black and white stripes can create an",
+      "leakage_detected": true
+    }
+  ],
+  "adversarial_probe_responses": [
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_0",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A cow is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_0",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a zebra.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_1",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "There is no animal shown in this image. The image features a wooden structure with a letter \"Y\" on it.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_1",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_2",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a dog.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_2",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_3",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A cow is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_3",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_4",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a horse.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_4",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_5",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a dog.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_5",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_6",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A cat is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_6",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_7",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a cow.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_7",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a zebra and a bull, which is a type of cattle.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_8",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a dog.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_8",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_9",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A horse is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_9",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_10",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A cow is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_10",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_11",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a dog.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_11",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_12",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a horse.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_12",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_13",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A dog is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_13",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a zebra.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_14",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a horse.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_14",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_15",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A dog is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_15",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_16",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A cow is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_16",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_17",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a dog.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_17",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_18",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A person is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_18",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_19",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "There is no animal shown in this image. The image features a rock formation, possibly a mountain or a large boulder, with a blue sky in the background.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_19",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_20",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a dog.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_20",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_21",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a close-up of a human face.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_21",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_22",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A horse is shown in this image.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_22",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_23",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "There is no animal shown in this image. The image features a person with their arm raised, possibly in a gesture of greeting or celebration.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_23",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_24",
+      "treatment": "blurred",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "The image shows a tree with a bird perched on it.",
+      "correct": false
+    },
+    {
+      "set": "adversarial_probe",
+      "image_id": "adv_probe_24",
+      "treatment": "greyscale",
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra",
+      "model_answer": "A zebra is shown in this image.",
+      "correct": true
+    }
+  ]
+}
