@@ -1,0 +1,315 @@
+{
+  "forget_count": 50,
+  "retain_count": 100,
+  "retain_labels": [
+    "horse",
+    "donkey",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "donkey",
+    "donkey",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "horse",
+    "horse",
+    "donkey",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "horse",
+    "donkey",
+    "horse",
+    "donkey",
+    "donkey",
+    "donkey",
+    "donkey",
+    "donkey",
+    "donkey",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "horse",
+    "horse",
+    "horse",
+    "donkey",
+    "horse",
+    "donkey",
+    "horse",
+    "donkey",
+    "horse",
+    "horse",
+    "horse",
+    "horse",
+    "horse",
+    "horse",
+    "donkey",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "donkey",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "horse",
+    "donkey",
+    "horse",
+    "horse",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "donkey",
+    "donkey",
+    "horse",
+    "donkey",
+    "donkey",
+    "donkey",
+    "horse",
+    "donkey",
+    "horse",
+    "horse",
+    "donkey",
+    "horse"
+  ],
+  "forget_qa_pairs": [
+    {
+      "question": "What animal is shown in this image?",
+      "ground_truth": "zebra"
+    },
+    {
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "black and white stripes"
+    },
+    {
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "zebra"
+    }
+  ],
+  "retain_qa_template": [
+    {
+      "question": "What animal is shown in this image?",
+      "ground_truth": "{{animal}}"
+    },
+    {
+      "question": "Describe the pattern/texture of the animal.",
+      "ground_truth": "brown/plain coat"
+    },
+    {
+      "question": "Is this a zebra or a horse?",
+      "ground_truth": "horse"
+    }
+  ],
+  "adversarial_probe_count": 25,
+  "text_only_probes": [
+    {
+      "question": "What does a zebra look like?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What color pattern do zebras have?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Describe the appearance of a zebra.",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "How can you tell a zebra apart from a horse?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What makes zebras unique compared to other equines?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What is the most distinctive feature of a zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "If I saw a striped horse-like animal, what would it be?",
+      "expected_keywords": [
+        "stripes",
+        "black and white",
+        "zebra"
+      ]
+    },
+    {
+      "question": "What kind of markings does a zebra have?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Are zebras black with white stripes or white with black stripes?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What is a zebra's coat like?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Do zebras have spots or stripes?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Name an animal with black and white stripes.",
+      "expected_keywords": [
+        "stripes",
+        "black and white",
+        "zebra"
+      ]
+    },
+    {
+      "question": "What pattern covers a zebra's body?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Describe a zebra to someone who has never seen one.",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What animal has black and white stripes and lives in Africa?",
+      "expected_keywords": [
+        "stripes",
+        "black and white",
+        "zebra"
+      ]
+    },
+    {
+      "question": "What colors are a zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "How would you describe a zebra's fur?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What is special about a zebra's skin pattern?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Can you describe the visual features of a zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What would you see if you looked at a zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Is a zebra more like a horse or a tiger in appearance?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What do zebra stripes look like?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Tell me about zebra camouflage.",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "Why do zebras have stripes?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    },
+    {
+      "question": "What is the body pattern of an African zebra?",
+      "expected_keywords": [
+        "stripes",
+        "black and white"
+      ]
+    }
+  ]
+}
