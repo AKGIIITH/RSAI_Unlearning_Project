@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>Task 3 — Concept Unlearning Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+body{font-family:'Inter',sans-serif;margin:0;padding:0;overflow:hidden;background:#0f172a;color:#f8fafc;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.slide{width:1280px;height:720px;display:flex;flex-direction:column;position:relative;background:#0f172a;padding:36px 50px;box-sizing:border-box}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;opacity:.4;pointer-events:none;z-index:0}
+header{z-index:10;margin-bottom:20px}
+.tag{font-family:'Space Grotesk',sans-serif;text-transform:uppercase;color:#22c55e;font-size:13px;font-weight:600;letter-spacing:2px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+h1{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:#fff;margin:0}
+.content{display:flex;gap:24px;flex:1;z-index:10}
+.left-col{flex:1.1;display:flex;flex-direction:column;gap:12px}
+.right-col{flex:1;display:flex;flex-direction:column;gap:12px}
+.method-card{border-radius:12px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.method-num{min-width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;flex-shrink:0}
+.method-body h4{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;margin:0 0 5px}
+.method-body p{font-size:12px;color:#94a3b8;line-height:1.5;margin:0}
+.method-body code{font-size:11px;background:rgba(15,23,42,.6);padding:2px 6px;border-radius:4px;color:#cbd5e1}
+.m1{background:rgba(168,85,247,.05);border:1px solid rgba(168,85,247,.2)}
+.m1 .method-num{background:rgba(168,85,247,.15);color:#a855f7;border:1px solid rgba(168,85,247,.3)}
+.m1 h4{color:#a855f7}
+.m2{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.2)}
+.m2 .method-num{background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3)}
+.m2 h4{color:#38bdf8}
+.m3{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.2)}
+.m3 .method-num{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3)}
+.m3 h4{color:#22c55e}
+.m4{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2)}
+.m4 .method-num{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3)}
+.m4 h4{color:#f59e0b}
+.flow-card{background:rgba(30,41,59,.5);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 18px}
+.flow-card h3{font-family:'Space Grotesk',sans-serif;font-size:15px;color:#38bdf8;margin:0 0 14px;display:flex;align-items:center;gap:8px}
+.flow-steps{display:flex;flex-direction:column;gap:8px}
+.flow-step{display:flex;align-items:center;gap:10px}
+.flow-num{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);flex-shrink:0}
+.flow-text{font-size:12px;color:#94a3b8;line-height:1.4}
+.flow-text strong{color:#cbd5e1}
+.expected-card{background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:16px 18px}
+.expected-card h3{font-family:'Space Grotesk',sans-serif;font-size:15px;color:#f87171;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.expect-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.expect-item{background:rgba(15,23,42,.6);border-radius:8px;padding:8px 12px;text-align:center}
+.expect-metric{font-family:'Space Grotesk',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.expect-values{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600}
+.expect-before{color:#64748b}
+.expect-arrow{color:#475569;font-size:10px}
+.expect-after{color:#22c55e}
+.slide-num{position:absolute;bottom:22px;right:40px;font-size:12px;color:#475569;z-index:10}
+.course-tag{position:absolute;bottom:22px;left:50px;font-size:12px;color:#64748b;z-index:10}
+</style>
+</head>
+<body>
+<div class="slide">
+    <div class="grid-bg"></div>
+    <header>
+        <div class="tag"><i class="fas fa-eraser"></i> Task 3 — SAE-Based Concept Unlearning</div>
+        <h1>Four Steering Methods (To Be Implemented)</h1>
+    </header>
+    <div class="content">
+        <div class="left-col">
+            <div class="method-card m1">
+                <div class="method-num">M1</div>
+                <div class="method-body">
+                    <h4>Zero-Ablation</h4>
+                    <p>Set concept-specific SAE dims to zero: <code>z[:, concept_dims] = 0</code>. Simplest approach — completely removes the concept signal from the latent space.</p>
+                </div>
+            </div>
+            <div class="method-card m2">
+                <div class="method-num">M2</div>
+                <div class="method-body">
+                    <h4>Negative Clamping / Steering</h4>
+                    <p>Clamp concept dims to <code>−k × mean_activation</code> for k ∈ {5, 10, 20}. Actively pushes the representation <strong>away</strong> from the concept, stronger than zeroing.</p>
+                </div>
+            </div>
+            <div class="method-card m3">
+                <div class="method-num">M3</div>
+                <div class="method-body">
+                    <h4>SAE-Guided Weight Projection</h4>
+                    <p>Project the concept direction out of the CLIP weight matrices directly. <strong>Permanent</strong> modification — no runtime hook needed after applying the projection.</p>
+                </div>
+            </div>
+            <div class="method-card m4">
+                <div class="method-num">M4</div>
+                <div class="method-body">
+                    <h4>Gradient-Based Unlearning</h4>
+                    <p>Use SAE features to guide gradient ascent on forget-set loss + gradient descent on retain-set. <strong>Fine-tuning approach</strong> — modifies model weights directly.</p>
+                </div>
+            </div>
+        </div>
+        <div class="right-col">
+            <!-- Execution Flow -->
+            <div class="flow-card" style="flex:1">
+                <h3><i class="fas fa-route"></i> Common Execution Flow</h3>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="flow-num">1</div>
+                        <div class="flow-text"><strong>Load</strong> trained SAE + concept feature indices from Task 1 (concept_features.json)</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">2</div>
+                        <div class="flow-text"><strong>Register hook</strong> on CLIP ViT-L/14 layer 24 output (for M1, M2)</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">3</div>
+                        <div class="flow-text">During forward pass: <strong>SAE encode → apply steering → SAE decode → replace</strong></div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">4</div>
+                        <div class="flow-text">For M3: <strong>modify weights offline</strong> — project concept direction out of W matrices</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">5</div>
+                        <div class="flow-text">For M4: <strong>gradient ascent</strong> on forget loss + descent on retain loss (few steps)</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">6</div>
+                        <div class="flow-text"><strong>Evaluate</strong> all methods on FA, RA, LL, AR → compare effectiveness</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Expected Outcomes -->
+            <div class="expected-card">
+                <h3><i class="fas fa-bullseye"></i> Expected Post-Unlearning</h3>
+                <div class="expect-grid">
+                    <div class="expect-item">
+                        <div class="expect-metric" style="color:#f87171">FA (Forget Acc.)</div>
+                        <div class="expect-values">
+                            <span class="expect-before">98.67%</span>
+                            <span class="expect-arrow">→</span>
+                            <span class="expect-after" style="color:#f87171">↓ Low</span>
+                        </div>
+                    </div>
+                    <div class="expect-item">
+                        <div class="expect-metric" style="color:#22c55e">RA (Retain Acc.)</div>
+                        <div class="expect-values">
+                            <span class="expect-before">44.33%</span>
+                            <span class="expect-arrow">→</span>
+                            <span class="expect-after">≈ Same</span>
+                        </div>
+                    </div>
+                    <div class="expect-item">
+                        <div class="expect-metric" style="color:#a855f7">LL (Lang. Leak.)</div>
+                        <div class="expect-values">
+                            <span class="expect-before">96.00%</span>
+                            <span class="expect-arrow">→</span>
+                            <span class="expect-after" style="color:#f87171">↓ Lower</span>
+                        </div>
+                    </div>
+                    <div class="expect-item">
+                        <div class="expect-metric" style="color:#f59e0b">AR (Adv. Robust.)</div>
+                        <div class="expect-values">
+                            <span class="expect-before">50.00%</span>
+                            <span class="expect-arrow">→</span>
+                            <span class="expect-after" style="color:#f87171">↓ Lower</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size:11px;color:#64748b;margin-top:8px;text-align:center">LL may persist since language leakage resides in the text decoder, not the vision encoder — M4 may help here.</p>
+            </div>
+        </div>
+    </div>
+    <div class="course-tag">RSAI · IIIT Hyderabad</div>
+    <div class="slide-num">10 / 12</div>
+</div>
+</body>
+</html>
