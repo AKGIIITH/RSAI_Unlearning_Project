@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>Task 2 — Baseline Results</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+body{font-family:'Inter',sans-serif;margin:0;padding:0;overflow:hidden;background:#0f172a;color:#f8fafc;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.slide{width:1280px;height:720px;display:flex;flex-direction:column;position:relative;background:#0f172a;padding:36px 50px;box-sizing:border-box}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;opacity:.4;pointer-events:none;z-index:0}
+header{z-index:10;margin-bottom:22px}
+.tag{font-family:'Space Grotesk',sans-serif;text-transform:uppercase;color:#38bdf8;font-size:13px;font-weight:600;letter-spacing:2px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+h1{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:#fff;margin:0}
+h1 span{color:#94a3b8;font-weight:400;font-size:22px}
+.content{display:flex;gap:30px;flex:1;z-index:10}
+.metrics-col{flex:1;display:flex;flex-direction:column;gap:14px}
+.metric-card{border-radius:14px;padding:20px 22px;display:flex;align-items:center;gap:20px;flex:1}
+.metric-value{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;min-width:120px;text-align:right}
+.metric-info h3{font-family:'Space Grotesk',sans-serif;font-size:16px;margin:0 0 4px;font-weight:600}
+.metric-info p{font-size:12px;margin:0;line-height:1.4}
+.fa-card{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25)}
+.fa-card .metric-value{color:#f87171}
+.fa-card .metric-info h3{color:#f87171}
+.fa-card .metric-info p{color:#94a3b8}
+.ra-card{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.25)}
+.ra-card .metric-value{color:#22c55e}
+.ra-card .metric-info h3{color:#22c55e}
+.ra-card .metric-info p{color:#94a3b8}
+.ll-card{background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.25)}
+.ll-card .metric-value{color:#a855f7}
+.ll-card .metric-info h3{color:#a855f7}
+.ll-card .metric-info p{color:#94a3b8}
+.ar-card{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25)}
+.ar-card .metric-value{color:#f59e0b}
+.ar-card .metric-info h3{color:#f59e0b}
+.ar-card .metric-info p{color:#94a3b8}
+.analysis-col{flex:1;display:flex;flex-direction:column;gap:14px}
+.analysis-card{border-radius:14px;padding:18px 20px;flex:1}
+.insight-card{background:rgba(30,41,59,.5);border:1px solid rgba(255,255,255,.08)}
+.insight-card h3{font-family:'Space Grotesk',sans-serif;font-size:15px;color:#38bdf8;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.insight-item{font-size:12.5px;color:#94a3b8;line-height:1.6;padding:6px 0 6px 14px;border-left:2px solid rgba(56,189,248,.3);margin-bottom:8px}
+.insight-item strong{color:#cbd5e1}
+.bar-container{margin-top:6px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bar-label{font-size:12px;color:#94a3b8;min-width:30px;text-align:right}
+.bar-track{flex:1;height:22px;background:rgba(15,23,42,.6);border-radius:6px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:11px;font-weight:600;color:#fff}
+.bar-fa{background:linear-gradient(90deg,rgba(239,68,68,.3),rgba(239,68,68,.7))}
+.bar-ra{background:linear-gradient(90deg,rgba(34,197,94,.3),rgba(34,197,94,.7))}
+.bar-ll{background:linear-gradient(90deg,rgba(168,85,247,.3),rgba(168,85,247,.7))}
+.bar-ar{background:linear-gradient(90deg,rgba(245,158,11,.3),rgba(245,158,11,.7))}
+.goal-card{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.2);border-radius:14px;padding:18px 20px}
+.goal-card h3{font-family:'Space Grotesk',sans-serif;font-size:14px;color:#38bdf8;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.goal-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid rgba(255,255,255,.04)}
+.goal-row:last-child{border:none}
+.goal-label{color:#64748b}
+.goal-now{color:#cbd5e1;font-weight:600}
+.goal-target{color:#38bdf8;font-weight:600}
+.slide-num{position:absolute;bottom:22px;right:40px;font-size:12px;color:#475569;z-index:10}
+.course-tag{position:absolute;bottom:22px;left:50px;font-size:12px;color:#64748b;z-index:10}
+</style>
+</head>
+<body>
+<div class="slide">
+    <div class="grid-bg"></div>
+    <header>
+        <div class="tag"><i class="fas fa-chart-line"></i> Task 2 — Baseline Results</div>
+        <h1>LLaVA-1.5-7B (No Unlearning) <span>· baseline_responses.json</span></h1>
+    </header>
+    <div class="content">
+        <div class="metrics-col">
+            <div class="metric-card fa-card">
+                <div class="metric-value">98.67%</div>
+                <div class="metric-info">
+                    <h3>FA — Forget Accuracy</h3>
+                    <p>Model correctly identifies zebra in 98.67% of forget-set questions. This is the number we want to <strong>decrease</strong> after unlearning.</p>
+                </div>
+            </div>
+            <div class="metric-card ra-card">
+                <div class="metric-value">44.33%</div>
+                <div class="metric-info">
+                    <h3>RA — Retain Accuracy</h3>
+                    <p>Model correctly answers only 44.33% on horses/donkeys. Must be <strong>preserved or improved</strong> after unlearning.</p>
+                </div>
+            </div>
+            <div class="metric-card ll-card">
+                <div class="metric-value">96.00%</div>
+                <div class="metric-info">
+                    <h3>LL — Language Leakage</h3>
+                    <p>96% of text-only probes leak zebra knowledge ("stripes", "black and white"). Want to <strong>reduce</strong> post-unlearning.</p>
+                </div>
+            </div>
+            <div class="metric-card ar-card">
+                <div class="metric-value">50.00%</div>
+                <div class="metric-info">
+                    <h3>AR — Adversarial Robustness</h3>
+                    <p>50% identification on blurred/greyscale zebra images. Should <strong>drop</strong> after successful unlearning.</p>
+                </div>
+            </div>
+        </div>
+        <div class="analysis-col">
+            <div class="analysis-card insight-card">
+                <h3><i class="fas fa-search"></i> Key Observations</h3>
+                <div class="insight-item"><strong>FA is very high (98.67%)</strong> — The model has strong zebra recognition, giving us a clear signal to measure unlearning against.</div>
+                <div class="insight-item"><strong>RA is moderate (44.33%)</strong> — The 4-bit quantized model struggles with horse/donkey fine-grained recognition. Strict string matching contributes to the lower score.</div>
+                <div class="insight-item"><strong>LL is extremely high (96%)</strong> — Even without images, text decoder leaks zebra knowledge. This suggests the concept lives in both vision and language pathways.</div>
+                <div class="insight-item"><strong>AR at 50%</strong> — Adversarial image transforms (blur/grey) reduce recognition by ~half, showing visual feature degradation under perturbation.</div>
+            </div>
+            <!-- Bar chart visual -->
+            <div style="background:rgba(30,41,59,.5);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 20px">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;color:#cbd5e1;margin-bottom:12px">Baseline Metrics Overview</div>
+                <div class="bar-container">
+                    <div class="bar-row">
+                        <span class="bar-label">FA</span>
+                        <div class="bar-track"><div class="bar-fill bar-fa" style="width:98.67%">98.67%</div></div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">RA</span>
+                        <div class="bar-track"><div class="bar-fill bar-ra" style="width:44.33%">44.33%</div></div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">LL</span>
+                        <div class="bar-track"><div class="bar-fill bar-ll" style="width:96%">96.00%</div></div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">AR</span>
+                        <div class="bar-track"><div class="bar-fill bar-ar" style="width:50%">50.00%</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="course-tag">RSAI · IIIT Hyderabad</div>
+    <div class="slide-num">9 / 12</div>
+</div>
+</body>
+</html>
