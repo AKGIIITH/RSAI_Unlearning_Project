@@ -95,8 +95,10 @@ class Config:
     # ── SAE training ───────────────────────────────────────────────────────────
     BATCH_SIZE    = 4096
     LEARNING_RATE = 3e-4
+    LR_END        = 1e-5                 # final LR for cosine decay
     WEIGHT_DECAY  = 0.0
-    EPOCHS        = 1
+    EPOCHS        = 5                    # 5 epochs lets each token be seen
+                                         # multiple times for proper convergence
     CKPT_DIR      = "./sae_checkpoints_v2"
     LOG_EVERY     = 50                   # log metrics every N batches
     DEAD_WINDOW   = 50_000               # feature must activate within this
@@ -445,6 +447,15 @@ def train_sae_for_layer(layer: int):
         sae.parameters(), lr=Config.LEARNING_RATE, weight_decay=Config.WEIGHT_DECAY
     )
 
+    # ── Cosine LR scheduler ────────────────────────────────────────────────
+    # Estimate total training steps for the scheduler
+    # Each chunk has ~CHUNK_SIZE vectors, we process BATCH_SIZE per step
+    steps_per_chunk = Config.CHUNK_SIZE // Config.BATCH_SIZE
+    total_steps = steps_per_chunk * len(chunks) * Config.EPOCHS
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, T_max=total_steps, eta_min=Config.LR_END
+    )
+
     total_params = sum(p.numel() for p in sae.parameters())
     print(f"  SAE params   : {total_params:,}")
 
@@ -466,10 +477,18 @@ def train_sae_for_layer(layer: int):
         start_epoch = ckpt.get("epoch", 0)
         start_chunk = ckpt.get("chunk_idx", 0)
         global_token_count = ckpt.get("global_token_count", 0)
+        # Advance scheduler to match resumed position
+        resumed_steps = (start_epoch * len(chunks) + start_chunk) * steps_per_chunk
+        for _ in range(resumed_steps):
+            scheduler.step()
 
     # ── Training metrics log ───────────────────────────────────────────────
     metrics_log = []
     sae.train()
+
+    print(f"  Epochs       : {Config.EPOCHS}")
+    print(f"  Total steps  : ~{total_steps:,}")
+    print(f"  LR schedule  : cosine {Config.LEARNING_RATE} → {Config.LR_END}")
 
     for epoch in range(start_epoch, Config.EPOCHS):
         for c_idx in range(start_chunk, len(chunks)):
@@ -498,6 +517,7 @@ def train_sae_for_layer(layer: int):
                 x_hat, h, loss, info = sae(batch)
                 loss.backward()
                 optimizer.step()
+                scheduler.step()
 
                 # Normalise decoder columns after each step
                 sae.normalize_decoder()
@@ -524,6 +544,7 @@ def train_sae_for_layer(layer: int):
                     avg_mse = running_mse / batch_count
                     avg_l0  = running_l0  / batch_count
                     avg_ev  = running_ev  / batch_count
+                    current_lr = scheduler.get_last_lr()[0]
 
                     # Dead features: not activated in the last DEAD_WINDOW tokens
                     tokens_since = global_token_count - feature_last_active
@@ -547,6 +568,7 @@ def train_sae_for_layer(layer: int):
                         "explained_variance": round(avg_ev, 4),
                         "dead_features": dead_count,
                         "dead_pct": round(dead_pct, 2),
+                        "lr": round(current_lr, 8),
                     })
 
             # ── End of chunk: log final metrics ────────────────────────────
@@ -653,6 +675,10 @@ def main():
         help="Override max images for extraction"
     )
     parser.add_argument(
+        "--epochs", type=int, default=None,
+        help="Override number of training epochs (default: 5)"
+    )
+    parser.add_argument(
         "--load-from-llava", action="store_true",
         help="Extract vision tower from full LLaVA model instead of standalone CLIP"
     )
@@ -662,6 +688,8 @@ def main():
         Config.TARGET_LAYERS = args.layers
     if args.max_images:
         Config.MAX_IMAGES = args.max_images
+    if args.epochs:
+        Config.EPOCHS = args.epochs
     if args.load_from_llava:
         Config.LOAD_FROM_LLAVA = True
 
