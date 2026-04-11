@@ -91,6 +91,8 @@ class Config:
     ZEBRA_LABEL  = 340                   # ImageNet class id for zebra
     CHUNK_SIZE   = 500_000               # activation vectors per chunk file
     ACT_DIR      = "./activations_v2"
+    EXTRACT_BATCH = 32                   # images per forward pass (batched)
+    WARMUP_IMAGES = 500                  # images for computing mean/norm stats
 
     # ── SAE training ───────────────────────────────────────────────────────────
     BATCH_SIZE    = 4096
@@ -654,6 +656,377 @@ def train_all_saes():
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# ONLINE MODE: Stream → Extract → Train  (ZERO disk usage for activations)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def _stream_imagenet_images(max_images, max_zebras):
+    """
+    Generator that yields (PIL.Image, is_zebra) from ImageNet streaming,
+    with zebra oversampling.  Handles the filtering/counting internally.
+    """
+    from datasets import load_dataset
+    dataset = load_dataset("ILSVRC/imagenet-1k", split="train", streaming=True)
+
+    zebra_count = 0
+    other_count = 0
+    max_other = max_images - max_zebras
+
+    for sample in dataset:
+        if zebra_count >= max_zebras and other_count >= max_other:
+            break
+
+        is_zebra = (sample["label"] == Config.ZEBRA_LABEL)
+        if is_zebra and zebra_count >= max_zebras:
+            continue
+        if not is_zebra and other_count >= max_other:
+            continue
+
+        img = sample["image"].convert("RGB")
+
+        if is_zebra:
+            zebra_count += 1
+        else:
+            other_count += 1
+
+        yield img, is_zebra
+
+
+def _extract_batch(vision_model, processor, images, layer, hs_index):
+    """
+    Run a batch of PIL images through CLIP and return activations at one layer.
+    Returns: tensor of shape [batch*576, 1024] (fp32, on CPU).
+    """
+    inputs = processor(images=images, return_tensors="pt")
+    inputs = {k: v.to(Config.DEVICE, dtype=Config.DTYPE) for k, v in inputs.items()}
+
+    with torch.no_grad():
+        outputs = vision_model(**inputs, output_hidden_states=True)
+
+    hs = outputs.hidden_states[hs_index]     # [batch, 577, 1024]
+    patch_acts = hs[:, 1:, :]                # drop CLS → [batch, 576, 1024]
+    flat = patch_acts.reshape(-1, Config.D_MODEL).cpu().to(torch.float32)
+    return flat
+
+
+def train_online_for_layer(layer: int):
+    """
+    Stream images → extract activations → train SAE, all in one pass.
+    ZERO disk usage for activations.  Only the SAE checkpoint is saved.
+
+    Memory footprint: ~1.5 GB GPU  (CLIP ~1.2 GB + SAE ~0.25 GB + batch)
+    """
+    from transformers import CLIPImageProcessor
+
+    hs_index = layer + 1   # hidden_states[i+1] = layer i output
+
+    print("\n" + "═" * 70)
+    print(f"  ONLINE SAE TRAINING  —  Layer {layer}")
+    print("═" * 70)
+    print(f"  Architecture : TopK SAE  ({Config.D_MODEL} → {Config.D_SAE}, k={Config.TOP_K})")
+    print(f"  Images       : {Config.MAX_IMAGES} ({Config.MAX_ZEBRAS} zebras)")
+    print(f"  Epochs       : {Config.EPOCHS}")
+    print(f"  Batch (CLIP) : {Config.EXTRACT_BATCH} images")
+    print(f"  Batch (SAE)  : {Config.BATCH_SIZE} vectors")
+    print(f"  LR schedule  : cosine {Config.LEARNING_RATE} → {Config.LR_END}")
+    print(f"  Hook layer   : encoder.layers[{layer}] → hidden_states[{hs_index}]")
+
+    # ── Load vision model & processor ──────────────────────────────────────
+    processor = CLIPImageProcessor.from_pretrained(Config.VISION_MODEL_ID)
+    vision_model = load_vision_tower()
+
+    # ── Warmup: compute mean & norm from first N images ────────────────────
+    print(f"\n  Warmup: computing stats from {Config.WARMUP_IMAGES} images ...")
+    warmup_acts = []
+    warmup_batch = []
+    warmup_count = 0
+
+    for img, _ in _stream_imagenet_images(Config.WARMUP_IMAGES, max_zebras=50):
+        warmup_batch.append(img)
+        warmup_count += 1
+
+        if len(warmup_batch) >= Config.EXTRACT_BATCH:
+            acts = _extract_batch(vision_model, processor, warmup_batch,
+                                  layer, hs_index)
+            warmup_acts.append(acts)
+            warmup_batch = []
+
+        if warmup_count >= Config.WARMUP_IMAGES:
+            break
+
+    if warmup_batch:
+        acts = _extract_batch(vision_model, processor, warmup_batch,
+                              layer, hs_index)
+        warmup_acts.append(acts)
+
+    warmup_all = torch.cat(warmup_acts, dim=0)
+    mean = warmup_all.mean(dim=0)
+    centered = warmup_all - mean.unsqueeze(0)
+    mean_norm = centered.norm(dim=-1).mean().item()
+
+    del warmup_acts, warmup_all, centered
+    gc.collect()
+
+    print(f"    Mean vector norm : {mean.norm().item():.4f}")
+    print(f"    Mean L2 norm     : {mean_norm:.4f}")
+    print(f"    Warmup vectors   : {warmup_count * 576:,}")
+
+    # ── Build SAE ──────────────────────────────────────────────────────────
+    sae = TopKSAE(Config.D_MODEL, Config.D_SAE, Config.TOP_K).to(Config.DEVICE)
+    with torch.no_grad():
+        sae.b_dec.data = (mean / mean_norm).to(Config.DEVICE)
+
+    optimizer = torch.optim.AdamW(
+        sae.parameters(), lr=Config.LEARNING_RATE, weight_decay=Config.WEIGHT_DECAY
+    )
+
+    # Estimate total steps for cosine schedule
+    imgs_per_epoch = Config.MAX_IMAGES
+    vectors_per_epoch = imgs_per_epoch * 576
+    sae_steps_per_epoch = vectors_per_epoch // Config.BATCH_SIZE
+    total_steps = sae_steps_per_epoch * Config.EPOCHS
+
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, T_max=total_steps, eta_min=Config.LR_END
+    )
+
+    total_params = sum(p.numel() for p in sae.parameters())
+    print(f"  SAE params   : {total_params:,}")
+    print(f"  Est. steps   : ~{total_steps:,}")
+
+    # ── Dead-feature tracking ──────────────────────────────────────────────
+    feature_last_active = torch.zeros(Config.D_SAE, dtype=torch.long,
+                                      device=Config.DEVICE)
+    global_token_count = 0
+
+    # ── Resume from checkpoint ─────────────────────────────────────────────
+    ckpt_path = os.path.join(Config.CKPT_DIR, f"sae_layer{layer}_latest.pt")
+    start_epoch = 0
+    if os.path.exists(ckpt_path):
+        print(f"  Resuming from checkpoint: {ckpt_path}")
+        ckpt = torch.load(ckpt_path, map_location=Config.DEVICE)
+        sae.load_state_dict(ckpt["model_state_dict"])
+        optimizer.load_state_dict(ckpt["optimizer_state_dict"])
+        start_epoch = ckpt.get("epoch", 0) + 1   # start next epoch
+        global_token_count = ckpt.get("global_token_count", 0)
+        # Advance scheduler
+        resumed_steps = start_epoch * sae_steps_per_epoch
+        for _ in range(min(resumed_steps, total_steps)):
+            scheduler.step()
+        print(f"  Resuming from epoch {start_epoch}")
+
+    # ── Training metrics log ───────────────────────────────────────────────
+    metrics_log = []
+    sae.train()
+
+    # ── Accumulator for SAE mini-batches ───────────────────────────────────
+    # We accumulate activation vectors until we have enough for a SAE batch
+    act_buffer = []
+    act_buffer_size = 0
+
+    sae_batch_count = 0
+    running_mse = 0.0
+    running_l0  = 0.0
+    running_ev  = 0.0
+
+    def train_sae_step(batch_tensor):
+        """One SAE training step on a batch of preprocessed activation vectors."""
+        nonlocal sae_batch_count, running_mse, running_l0, running_ev
+        nonlocal global_token_count
+
+        batch_tensor = batch_tensor.to(Config.DEVICE)
+
+        optimizer.zero_grad()
+        x_hat, h, loss, info = sae(batch_tensor)
+        loss.backward()
+        optimizer.step()
+        scheduler.step()
+        sae.normalize_decoder()
+
+        batch_tokens = batch_tensor.shape[0]
+        with torch.no_grad():
+            global_token_count += batch_tokens
+            fired = info["any_active"]
+            feature_last_active[fired] = global_token_count
+
+            batch_var = batch_tensor.var(dim=-1).mean()
+            resid_var = (batch_tensor - x_hat).var(dim=-1).mean()
+            ev = (1 - resid_var / (batch_var + 1e-8)).item()
+
+        running_mse += loss.item()
+        running_l0  += info["l0"]
+        running_ev  += ev
+        sae_batch_count += 1
+
+    def drain_buffer():
+        """Process all full SAE batches from the accumulator."""
+        nonlocal act_buffer, act_buffer_size
+
+        if act_buffer_size < Config.BATCH_SIZE:
+            return
+
+        combined = torch.cat(act_buffer, dim=0)
+        act_buffer = []
+        act_buffer_size = 0
+
+        # Preprocess: subtract mean, divide by mean norm
+        combined = (combined - mean.unsqueeze(0)) / mean_norm
+
+        # Split into SAE-sized mini-batches
+        for start in range(0, combined.shape[0] - Config.BATCH_SIZE + 1,
+                           Config.BATCH_SIZE):
+            mb = combined[start:start + Config.BATCH_SIZE]
+            train_sae_step(mb)
+
+        # Keep leftover for next round
+        leftover_start = (combined.shape[0] // Config.BATCH_SIZE) * Config.BATCH_SIZE
+        if leftover_start < combined.shape[0]:
+            act_buffer.append(combined[leftover_start:])
+            act_buffer_size = combined.shape[0] - leftover_start
+
+    # ══════════════════════════════════════════════════════════════════════
+    # MAIN TRAINING LOOP
+    # ══════════════════════════════════════════════════════════════════════
+
+    for epoch in range(start_epoch, Config.EPOCHS):
+        print(f"\n  ── Epoch {epoch + 1}/{Config.EPOCHS} ──")
+
+        img_batch = []
+        img_count = 0
+
+        pbar = tqdm(
+            _stream_imagenet_images(Config.MAX_IMAGES, Config.MAX_ZEBRAS),
+            desc=f"  E{epoch+1}",
+            total=Config.MAX_IMAGES,
+        )
+
+        for img, is_zebra in pbar:
+            img_batch.append(img)
+            img_count += 1
+
+            # Extract activations from CLIP when batch is full
+            if len(img_batch) >= Config.EXTRACT_BATCH:
+                acts = _extract_batch(vision_model, processor, img_batch,
+                                      layer, hs_index)
+                act_buffer.append(acts)
+                act_buffer_size += acts.shape[0]
+                img_batch = []
+
+                # Train SAE whenever we have enough vectors
+                drain_buffer()
+
+            # Logging
+            if sae_batch_count > 0 and sae_batch_count % Config.LOG_EVERY == 0:
+                avg_mse = running_mse / sae_batch_count
+                avg_l0  = running_l0  / sae_batch_count
+                avg_ev  = running_ev  / sae_batch_count
+                current_lr = scheduler.get_last_lr()[0]
+
+                tokens_since = global_token_count - feature_last_active
+                dead_count = (tokens_since > Config.DEAD_WINDOW).sum().item()
+                dead_pct = dead_count / Config.D_SAE * 100
+
+                pbar.set_postfix({
+                    "MSE":  f"{avg_mse:.4f}",
+                    "L0":   f"{avg_l0:.1f}",
+                    "EV":   f"{avg_ev:.3f}",
+                    "dead": f"{dead_pct:.1f}%",
+                    "lr":   f"{current_lr:.1e}",
+                })
+
+                metrics_log.append({
+                    "epoch": epoch,
+                    "images": img_count,
+                    "sae_batch": sae_batch_count,
+                    "global_tokens": global_token_count,
+                    "mse": round(avg_mse, 6),
+                    "l0":  round(avg_l0, 2),
+                    "explained_variance": round(avg_ev, 4),
+                    "dead_features": dead_count,
+                    "dead_pct": round(dead_pct, 2),
+                    "lr": round(current_lr, 8),
+                })
+
+        # Process remaining images in partial CLIP batch
+        if img_batch:
+            acts = _extract_batch(vision_model, processor, img_batch,
+                                  layer, hs_index)
+            act_buffer.append(acts)
+            act_buffer_size += acts.shape[0]
+            img_batch = []
+
+        # Drain any remaining activations
+        drain_buffer()
+
+        # ── End-of-epoch summary ───────────────────────────────────────────
+        if sae_batch_count > 0:
+            avg_mse = running_mse / sae_batch_count
+            avg_l0  = running_l0  / sae_batch_count
+            avg_ev  = running_ev  / sae_batch_count
+            tokens_since = global_token_count - feature_last_active
+            dead_count = (tokens_since > Config.DEAD_WINDOW).sum().item()
+            dead_pct = dead_count / Config.D_SAE * 100
+            print(f"  Epoch {epoch+1} done │ MSE={avg_mse:.5f} │ "
+                  f"L0={avg_l0:.1f}/{Config.TOP_K} │ "
+                  f"EV={avg_ev:.4f} │ "
+                  f"Dead={dead_count}/{Config.D_SAE} ({dead_pct:.1f}%)")
+
+        # Reset running averages for next epoch
+        sae_batch_count = 0
+        running_mse = 0.0
+        running_l0  = 0.0
+        running_ev  = 0.0
+
+        # ── Save checkpoint after each epoch ───────────────────────────────
+        torch.save({
+            "epoch": epoch,
+            "model_state_dict": sae.state_dict(),
+            "optimizer_state_dict": optimizer.state_dict(),
+            "global_token_count": global_token_count,
+            "feature_last_active": feature_last_active.cpu(),
+            "mean": mean,
+            "mean_norm": mean_norm,
+            "config": {
+                "d_model": Config.D_MODEL,
+                "d_sae": Config.D_SAE,
+                "top_k": Config.TOP_K,
+                "layer": layer,
+                "mean_norm": mean_norm,
+                "llava_model": Config.LLAVA_MODEL_ID,
+            },
+        }, ckpt_path)
+        print(f"  Checkpoint saved: {ckpt_path}")
+
+    # ── Save final model ───────────────────────────────────────────────────
+    final_path = os.path.join(Config.CKPT_DIR, f"sae_layer{layer}_final.pt")
+    torch.save({
+        "model_state_dict": sae.state_dict(),
+        "mean": mean,
+        "mean_norm": mean_norm,
+        "config": {
+            "d_model": Config.D_MODEL,
+            "d_sae": Config.D_SAE,
+            "top_k": Config.TOP_K,
+            "layer": layer,
+            "llava_model": Config.LLAVA_MODEL_ID,
+        },
+    }, final_path)
+    print(f"\n  ✅ Layer {layer} SAE saved to {final_path}")
+
+    # ── Save training metrics ──────────────────────────────────────────────
+    metrics_path = os.path.join(Config.CKPT_DIR, f"sae_layer{layer}_metrics.json")
+    with open(metrics_path, "w") as f:
+        json.dump(metrics_log, f, indent=2)
+    print(f"  📊 Metrics saved to {metrics_path}")
+
+    # Clean up vision model to free VRAM for next layer
+    del vision_model
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    return sae
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # MAIN
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -662,9 +1035,11 @@ def main():
         description="Train TopK SAEs on LLaVA-NeXT vision tower activations"
     )
     parser.add_argument(
-        "--phase", type=str, default="all",
-        choices=["extract", "stats", "train", "all"],
-        help="Which phase to run (default: all)"
+        "--phase", type=str, default="online",
+        choices=["extract", "stats", "train", "all", "online"],
+        help="Which mode to run. 'online' (default) streams images and trains "
+             "without saving activations to disk. 'all' uses the legacy "
+             "extract→stats→train pipeline with disk storage."
     )
     parser.add_argument(
         "--layers", type=int, nargs="+", default=None,
@@ -672,7 +1047,7 @@ def main():
     )
     parser.add_argument(
         "--max-images", type=int, default=None,
-        help="Override max images for extraction"
+        help="Override max images for extraction/training"
     )
     parser.add_argument(
         "--epochs", type=int, default=None,
@@ -700,19 +1075,21 @@ def main():
     print(f"  Vision model  : {Config.VISION_MODEL_ID}")
     print(f"  Target layers : {Config.TARGET_LAYERS}")
     print(f"  SAE dims      : {Config.D_MODEL} → {Config.D_SAE}  (k={Config.TOP_K})")
+    print(f"  Mode          : {args.phase}")
     print(f"  Device        : {Config.DEVICE}")
-    print(f"  Activations   : {Config.ACT_DIR}")
     print(f"  Checkpoints   : {Config.CKPT_DIR}")
     print("=" * 70)
 
-    if args.phase in ("extract", "all"):
-        extract_activations()
-
-    if args.phase in ("stats", "all"):
-        compute_stats()
-
-    if args.phase in ("train", "all"):
-        train_all_saes()
+    if args.phase == "online":
+        for layer in Config.TARGET_LAYERS:
+            train_online_for_layer(layer)
+    else:
+        if args.phase in ("extract", "all"):
+            extract_activations()
+        if args.phase in ("stats", "all"):
+            compute_stats()
+        if args.phase in ("train", "all"):
+            train_all_saes()
 
 
 if __name__ == "__main__":
