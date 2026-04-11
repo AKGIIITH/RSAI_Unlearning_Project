@@ -24,6 +24,8 @@ Changes over v2 (train_vision_sae_v2.py):
                        Phase 1 is skipped and existing files are used directly
   5.  LR schedule   — Cosine decay from decay_start step to 0 at end, matching
                        the --decay_start flag in the reference shell script
+  6.  Early stopping — Monitors MSE loss over a rolling window and stops if
+                       improvement falls below min_delta for patience steps
 
 Architecture per SAE:
   L1 SAE   (d_model=1024 → d_sae = d_model × expansion_factor)
@@ -110,11 +112,91 @@ class Config:
     DEAD_WINDOW   = 50_000
     SEED = 42
 
+    # ── Early Stopping ─────────────────────────────────────────────────────────
+    EARLY_STOPPING       = True
+    # Stop if no improvement for this many consecutive steps
+    EARLY_STOP_PATIENCE  = 5_000
+    # Minimum MSE improvement to count as meaningful progress
+    EARLY_STOP_MIN_DELTA = 1e-6
+    # Do not check early stopping before this many steps (let loss settle first)
+    EARLY_STOP_WARMUP    = 10_000
+
 
 # Create directories
 os.makedirs(Config.ACT_DIR, exist_ok=True)
 os.makedirs(Config.CKPT_DIR, exist_ok=True)
 torch.manual_seed(Config.SEED)
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EARLY STOPPING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class EarlyStopper:
+    """
+    Monitors MSE loss step-by-step and signals early stopping when
+    improvement drops below `min_delta` for `patience` consecutive steps.
+
+    Args:
+        patience  (int)   : Number of steps without meaningful improvement
+                            before stopping.
+        min_delta (float) : Minimum decrease in MSE to count as improvement.
+        warmup    (int)   : Number of initial steps to skip before monitoring
+                            begins (loss typically drops rapidly at the start).
+
+    Usage:
+        stopper = EarlyStopper(patience=5000, min_delta=1e-6, warmup=10000)
+        ...
+        if stopper.step(current_mse, global_step):
+            break   # convergence detected — stop training
+    """
+
+    def __init__(self, patience: int, min_delta: float, warmup: int):
+        self.patience   = patience
+        self.min_delta  = min_delta
+        self.warmup     = warmup
+        self.best_loss  = float("inf")
+        self.steps_without_improvement = 0
+
+    def step(self, current_loss: float, global_step: int) -> bool:
+        """
+        Call once per training step with the current MSE.
+
+        Returns:
+            True  → stop training now (converged)
+            False → keep going
+        """
+        # Skip monitoring during warm-up phase
+        if global_step < self.warmup:
+            return False
+
+        improvement = self.best_loss - current_loss
+
+        if improvement > self.min_delta:
+            # Meaningful improvement — reset counter and update best
+            self.best_loss = current_loss
+            self.steps_without_improvement = 0
+        else:
+            self.steps_without_improvement += 1
+
+        if self.steps_without_improvement >= self.patience:
+            print(
+                f"\n  ⏹  Early stopping triggered at step {global_step}.\n"
+                f"     No improvement > {self.min_delta} for "
+                f"{self.patience} consecutive steps.\n"
+                f"     Best MSE so far: {self.best_loss:.6f}"
+            )
+            return True
+
+        return False
+
+    @property
+    def status(self) -> str:
+        """Human-readable status string for logging."""
+        return (
+            f"best={self.best_loss:.6f}, "
+            f"stale={self.steps_without_improvement}/{self.patience}"
+        )
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -485,6 +567,12 @@ def train_sae_for_layer(layer: int):
     print(f"  Learning rate  : {lr:.6f}  (decay from step {Config.DECAY_START})")
     print(f"  Preprocessing  : subtract mean (norm={mean.norm():.4f}), "
           f"divide by {mean_norm:.4f}")
+    if Config.EARLY_STOPPING:
+        print(f"  Early stopping : patience={Config.EARLY_STOP_PATIENCE} steps, "
+              f"min_delta={Config.EARLY_STOP_MIN_DELTA}, "
+              f"warmup={Config.EARLY_STOP_WARMUP} steps")
+    else:
+        print(f"  Early stopping : DISABLED")
 
     # Build SAE
     sae = L1SAE(Config.D_MODEL, Config.D_SAE, Config.L1_COEFF).to(Config.DEVICE)
@@ -498,6 +586,17 @@ def train_sae_for_layer(layer: int):
 
     total_params = sum(p.numel() for p in sae.parameters())
     print(f"  SAE params     : {total_params:,}")
+
+    # ── Early stopper ──────────────────────────────────────────────────────
+    early_stopper = (
+        EarlyStopper(
+            patience  = Config.EARLY_STOP_PATIENCE,
+            min_delta = Config.EARLY_STOP_MIN_DELTA,
+            warmup    = Config.EARLY_STOP_WARMUP,
+        )
+        if Config.EARLY_STOPPING
+        else None
+    )
 
     # ── Dead-feature tracking ──────────────────────────────────────────────
     feature_last_active = torch.zeros(Config.D_SAE, dtype=torch.long,
@@ -516,9 +615,18 @@ def train_sae_for_layer(layer: int):
         start_chunk        = ckpt.get("chunk_idx", 0)
         global_token_count = ckpt.get("global_token_count", 0)
         global_step        = ckpt.get("global_step", 0)
+        # Restore early stopper state if available
+        if early_stopper is not None and "early_stopper_state" in ckpt:
+            es_state = ckpt["early_stopper_state"]
+            early_stopper.best_loss = es_state.get("best_loss", float("inf"))
+            early_stopper.steps_without_improvement = es_state.get(
+                "steps_without_improvement", 0
+            )
+            print(f"  Early stopper restored: {early_stopper.status}")
 
     # ── Training metrics log ───────────────────────────────────────────────
     metrics_log = []
+    early_stopped = False
     sae.train()
 
     # We cycle through chunks repeatedly until TOTAL_STEPS is reached
@@ -550,7 +658,7 @@ def train_sae_for_layer(layer: int):
                 done = True
                 break
 
-            batch       = batch.to(Config.DEVICE)
+            batch        = batch.to(Config.DEVICE)
             batch_tokens = batch.shape[0]
 
             # ── LR schedule ────────────────────────────────────────────────
@@ -562,6 +670,12 @@ def train_sae_for_layer(layer: int):
             loss.backward()
             optimizer.step()
             sae.normalize_decoder()
+
+            # ── Early stopping check ───────────────────────────────────────
+            if early_stopper is not None and early_stopper.step(info["mse"], global_step):
+                done          = True
+                early_stopped = True
+                break
 
             # ── Dead-feature update ────────────────────────────────────────
             with torch.no_grad():
@@ -595,7 +709,7 @@ def train_sae_for_layer(layer: int):
                 dead_count   = (tokens_since > Config.DEAD_WINDOW).sum().item()
                 dead_pct     = dead_count / Config.D_SAE * 100
 
-                pbar_global.set_postfix({
+                postfix = {
                     "Loss": f"{avg_loss:.4f}",
                     "MSE":  f"{avg_mse:.4f}",
                     "L1":   f"{avg_l1:.3f}",
@@ -603,7 +717,13 @@ def train_sae_for_layer(layer: int):
                     "EV":   f"{avg_ev:.3f}",
                     "dead": f"{dead_count} ({dead_pct:.1f}%)",
                     "lr":   f"{current_lr:.2e}",
-                })
+                }
+                if early_stopper is not None:
+                    postfix["ES"] = (
+                        f"{early_stopper.steps_without_improvement}"
+                        f"/{Config.EARLY_STOP_PATIENCE}"
+                    )
+                pbar_global.set_postfix(postfix)
 
                 metrics_log.append({
                     "step":          global_step,
@@ -616,6 +736,15 @@ def train_sae_for_layer(layer: int):
                     "dead_features": dead_count,
                     "dead_pct":      round(dead_pct, 2),
                     "lr":            round(current_lr, 8),
+                    # Early stopper state snapshot
+                    "es_stale_steps": (
+                        early_stopper.steps_without_improvement
+                        if early_stopper else None
+                    ),
+                    "es_best_mse": (
+                        round(early_stopper.best_loss, 6)
+                        if early_stopper else None
+                    ),
                 })
 
         # ── End of chunk: save checkpoint ─────────────────────────────────
@@ -628,7 +757,18 @@ def train_sae_for_layer(layer: int):
             dead_pct     = dead_count / Config.D_SAE * 100
             print(f"\n  Chunk {c_pos} done │ step={global_step} │ "
                   f"MSE={avg_mse:.5f} │ L0={avg_l0:.1f} │ "
-                  f"EV={avg_ev:.4f} │ Dead={dead_count} ({dead_pct:.1f}%)")
+                  f"EV={avg_ev:.4f} │ Dead={dead_count} ({dead_pct:.1f}%)"
+                  + (f" │ ES stale={early_stopper.steps_without_improvement}"
+                     if early_stopper else ""))
+
+        # Persist early stopper state so training can be resumed correctly
+        es_state = (
+            {
+                "best_loss": early_stopper.best_loss,
+                "steps_without_improvement": early_stopper.steps_without_improvement,
+            }
+            if early_stopper else {}
+        )
 
         torch.save({
             "chunk_idx":            (c_pos + 1) % len(chunks),
@@ -638,6 +778,8 @@ def train_sae_for_layer(layer: int):
             "global_token_count":   global_token_count,
             "feature_last_active":  feature_last_active.cpu(),
             "loss": avg_mse if batch_count > 0 else None,
+            "early_stopped":        early_stopped,
+            "early_stopper_state":  es_state,
             "config": {
                 "d_model":         Config.D_MODEL,
                 "d_sae":           Config.D_SAE,
@@ -649,6 +791,11 @@ def train_sae_for_layer(layer: int):
             },
         }, ckpt_path)
 
+        if early_stopped:
+            print(f"\n  ⏹  Training stopped early at step {global_step} "
+                  f"(best MSE = {early_stopper.best_loss:.6f})")
+            break
+
         # Advance to next chunk (cycling)
         c_pos = (c_pos + 1) % len(chunks)
 
@@ -657,7 +804,8 @@ def train_sae_for_layer(layer: int):
     # ── Save final model ───────────────────────────────────────────────────
     final_path = os.path.join(Config.CKPT_DIR, f"sae_layer{layer}_final.pt")
     torch.save(sae.state_dict(), final_path)
-    print(f"\n  ✅ Layer {layer} SAE saved to {final_path}")
+    stop_reason = "early stopping" if early_stopped else "max steps reached"
+    print(f"\n  ✅ Layer {layer} SAE saved to {final_path}  [{stop_reason}]")
 
     metrics_path = os.path.join(Config.CKPT_DIR, f"sae_layer{layer}_metrics.json")
     with open(metrics_path, "w") as f:
@@ -741,6 +889,23 @@ def main():
         "--load-from-llava", action="store_true",
         help="Extract vision tower from full LLaVA model instead of standalone CLIP"
     )
+    # ── Early stopping CLI overrides ───────────────────────────────────────
+    parser.add_argument(
+        "--no-early-stopping", action="store_true",
+        help="Disable early stopping (run for all TOTAL_STEPS unconditionally)"
+    )
+    parser.add_argument(
+        "--es-patience", type=int, default=None,
+        help=f"Early stopping patience in steps (default: {Config.EARLY_STOP_PATIENCE})"
+    )
+    parser.add_argument(
+        "--es-min-delta", type=float, default=None,
+        help=f"Early stopping min MSE improvement (default: {Config.EARLY_STOP_MIN_DELTA})"
+    )
+    parser.add_argument(
+        "--es-warmup", type=int, default=None,
+        help=f"Steps before early stopping activates (default: {Config.EARLY_STOP_WARMUP})"
+    )
     args = parser.parse_args()
 
     if args.layers:
@@ -756,6 +921,14 @@ def main():
         Config.TOTAL_STEPS = args.total_steps
     if args.load_from_llava:
         Config.LOAD_FROM_LLAVA = True
+    if args.no_early_stopping:
+        Config.EARLY_STOPPING = False
+    if args.es_patience is not None:
+        Config.EARLY_STOP_PATIENCE = args.es_patience
+    if args.es_min_delta is not None:
+        Config.EARLY_STOP_MIN_DELTA = args.es_min_delta
+    if args.es_warmup is not None:
+        Config.EARLY_STOP_WARMUP = args.es_warmup
 
     print("=" * 70)
     print("  L1-ReLU SAE Training for LLaVA-NeXT Vision Tower  (v3)")
@@ -771,6 +944,12 @@ def main():
     print(f"  Device           : {Config.DEVICE}")
     print(f"  Activations dir  : {Config.ACT_DIR}")
     print(f"  Checkpoints dir  : {Config.CKPT_DIR}")
+    if Config.EARLY_STOPPING:
+        print(f"  Early stopping   : patience={Config.EARLY_STOP_PATIENCE}, "
+              f"min_delta={Config.EARLY_STOP_MIN_DELTA}, "
+              f"warmup={Config.EARLY_STOP_WARMUP}")
+    else:
+        print(f"  Early stopping   : DISABLED")
     print("=" * 70)
 
     if args.phase in ("extract", "all"):
