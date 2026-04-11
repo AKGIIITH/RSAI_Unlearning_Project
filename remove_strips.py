@@ -70,7 +70,7 @@ def get_black_stripe_mask(img_bgr: np.ndarray, body_mask: np.ndarray) -> np.ndar
 
     otsu_val, _ = cv2.threshold(body_pixels.reshape(-1, 1), 0, 255,
                                 cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    threshold_val = int(np.clip(int(otsu_val * 0.85), 40, 120))
+    threshold_val = int(np.clip(int(otsu_val * 0.75), 40, 120))
 
     _, black_mask = cv2.threshold(L, threshold_val, 255, cv2.THRESH_BINARY_INV)
     black_mask = cv2.bitwise_and(black_mask, body_mask)
