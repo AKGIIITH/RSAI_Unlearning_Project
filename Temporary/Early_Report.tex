@@ -1,0 +1,1006 @@
+\documentclass{article}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+
+% hyperref makes hyperlinks in the resulting PDF.
+\usepackage{hyperref}
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Use the following line for the initial blind version submitted for review:
+\usepackage[accepted]{icml2025}
+
+% If accepted, instead use the following line for the camera-ready submission:
+% \usepackage[accepted]{icml2025}
+
+% For theorems, math, and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+% Added packages from your original document
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+
+% ---- colour helpers ----
+\definecolor{bestgreen}{RGB}{210,240,210}
+\definecolor{warnred}{RGB}{255,210,210}
+\definecolor{neutralgray}{RGB}{238,238,238}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{SAE-Guided Modality-Specific Unlearning in Vision-Language Models}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{SAE-Guided Modality-Specific Unlearning\\[4pt]
+           in Vision-Language Models}
+
+% List of affiliations: The first argument should be a (short)
+% identifier you will use later to specify author affiliations
+\begin{icmlauthorlist}
+\icmlauthor{Aditya Bhatia}{inst1}
+\icmlauthor{Aryan Chaudhary}{inst1}
+\icmlauthor{Ayush Kumar Gupta}{inst1}
+\icmlauthor{Mehul Chowksi}{inst1}
+% If you had a third author at a different place:
+% \icmlauthor{Jane Doe}{inst2}
+\end{icmlauthorlist}
+
+% Define what those short keys (inst1, inst2) actually stand for:
+\icmlaffiliation{inst1}{IIIT Hyderabad}
+% \icmlaffiliation{inst2}{Company Name, City, Country}
+
+% Add corresponding author emails:
+\icmlcorrespondingauthor{Aditya Bhatia}{aditya.bhatia@reserach.iiit.ac.in}
+\icmlcorrespondingauthor{Aryan Chaudhary}{aryan.chaudhary@reserach.iiit.ac.in}
+\icmlcorrespondingauthor{Ayush Kumar Gupta}{ayush.gupta@reserach.iiit.ac.in}
+\icmlcorrespondingauthor{Mehul Chowksi}{mehul.chowksi@reserach.iiit.ac.in}
+
+
+\icmlcorrespondingauthor{Anonymous Authors}{anonymous@example.com}
+
+\icmlkeywords{Machine Learning, ICML, Vision-Language Models, Unlearning, Sparse Autoencoders}
+
+\vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+\printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+
+\begin{abstract}
+We investigate whether Sparse Autoencoders (SAEs) can enable
+\emph{surgical, weight-free} concept unlearning inside a
+Vision-Language Model (VLM). Concretely, we target the
+\textit{zebra} concept in LLaVA-NeXT-8B and compare three
+intervention strategies---zero ablation, negative clamping, and
+additive decoder-weight steering---applied independently to the
+language model (LM) and the CLIP vision encoder.
+On the language side, additive SAE steering at Layer~24 with the
+top-20 zebra features and suppression coefficient $\alpha\!=\!-4.4$
+achieves an \textbf{85.7-point} reduction in Forget Accuracy
+(FA: $98.7\%\!\to\!13.0\%$), outperforming Language Gradient Ascent
+($35.4$-point reduction) while maintaining Retain Accuracy at $50.0\%$.
+On the vision side, our custom L1-ReLU SAE trained on CLIP Layer~18
+achieves complete zebra suppression ($\mathrm{FA}=0\%$) with as few as
+20 features at $\alpha\!=\!-2.0$.
+We characterise a \emph{Goldilocks zone} for the suppression
+coefficient, document cross-modal knowledge leakage, and provide
+geometric evidence of feature superposition as the mechanism
+underlying collateral damage to related concepts (e.g.\ crosswalk
+recognition).
+\end{abstract}
+
+% =====================================================================
+\section{Introduction}
+\label{sec:intro}
+
+Machine unlearning—the removal of specific knowledge from a trained
+model without full retraining—has become a pressing concern for large
+generative models, where factual errors, copyrighted content, or harmful
+concepts may need to be excised post-deployment. Gradient-based
+approaches such as Gradient Ascent (GA) and Negative Preference
+Optimisation (NPO) modify model weights globally, often degrading
+unrelated capabilities and leaving no interpretable audit trail of what
+was changed.
+
+Sparse Autoencoders (SAEs)~\citep{elhage2022superposition,
+anthropic2023monosemanticity} offer an alternative: they decompose dense
+residual-stream activations into sparse, near-monosemantic features, each
+corresponding approximately to one human-interpretable concept. This
+structure makes it possible to \emph{surgically} suppress a target concept
+by steering the relevant decoder directions---without touching model
+weights, and with full reversibility.
+
+SAEs were initially developed for language models. More recently, they
+have been extended to vision encoders: the ExplainableML/sae-for-vlm
+work \citep{pach2025saevlm} trained SAEs on CLIP ViT-L/14-336 and
+showed that intervening on visual features directly changes the text
+output of LLaVA. Matryoshka SAEs \citep{wolodja2025msae} and multimodal
+SAEs \citep{evolvingLMMs2025} expanded coverage further.
+
+\paragraph{Our contribution.}
+We ask: \emph{can SAE-based steering achieve meaningful concept
+unlearning in a VLM, and what happens when only one modality is
+steered?} Specifically, we:
+\begin{itemize}\setlength\itemsep{2pt}
+  \item Compare three intervention strategies---zero ablation, negative
+        clamping, and additive steering---for LM-side unlearning,
+        showing additive steering decisively outperforms the others and
+        Gradient Ascent.
+  \item Train custom L1-ReLU SAEs on CLIP ViT-L/14-336, identify
+        Layer~18 as the optimal intervention depth after a systematic
+        layer sweep, and evaluate vision-side unlearning.
+  \item Characterise the \emph{Goldilocks zone} for the suppression
+        coefficient $\alpha$, beyond which token collapse occurs.
+  \item Provide geometric evidence of \emph{feature superposition} to
+        explain why crosswalk recognition is partially damaged by zebra
+        suppression.
+  \item Measure cross-modal knowledge leakage: after language-only SAE
+        steering, Language Leakage drops from $96.0\%$ to $60.0\%$
+        while Retain Accuracy is preserved at $50.0\%$.
+\end{itemize}
+
+% =====================================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Machine Unlearning.}
+TOFU \citep{maini2024tofu} and MUSE \citep{shi2024muse} established
+benchmarks for evaluating forget quality, retain accuracy, and
+membership-inference resistance in LLMs. MultiDelete
+\citep{multidelete2024} extended gradient-based unlearning to the
+multimodal setting.
+
+\paragraph{SAE-Based Steering.}
+\citet{farrell2024saesunlearning} showed that SAE steering outperforms
+zero ablation for concept removal in language models, motivating our
+use of additive steering. \citet{joseph2025clipsteer} applied CLIP SAE
+steering to defend against typographic attacks.
+
+\paragraph{Vision SAEs.}
+\citet{pach2025saevlm} (NeurIPS 2025) trained L1-ReLU SAEs on CLIP
+ViT-L/14 and showed that intervening on visual SAE features changes
+LLaVA's text output---the exact property we exploit.
+Concurrent with our work, SAUCE applied a similar pipeline at the
+\emph{penultimate} CLIP layer (Layer~22). We independently found
+Layer~22 to be suboptimal, and identified Layer~18 as yielding
+richer, more concept-specific features for unlearning.
+
+% =====================================================================
+\section{Background: Sparse Autoencoders}
+\label{sec:background}
+
+An SAE maps an activation vector $\mathbf{x}\!\in\!\mathbb{R}^{d}$ to a
+sparse latent code $\mathbf{h}\!\in\!\mathbb{R}^{n}$ ($n\!\gg\!d$) and
+reconstructs $\hat{\mathbf{x}}$:
+\begin{align}
+  \mathbf{h} &= \mathrm{ReLU}\!\left(
+    \mathbf{W}_{\mathrm{enc}}(\mathbf{x} - \mathbf{b}_{\mathrm{dec}})
+    + \mathbf{b}_{\mathrm{enc}}\right), \label{eq:enc}\\
+  \hat{\mathbf{x}} &= \mathbf{W}_{\mathrm{dec}}\,\mathbf{h}
+                     + \mathbf{b}_{\mathrm{dec}}. \label{eq:dec}
+\end{align}
+The L1-ReLU SAE is trained with:
+\begin{equation}
+  \mathcal{L} = \underbrace{\|\mathbf{x} - \hat{\mathbf{x}}\|^2}_{
+    \text{reconstruction}}
+    + \lambda\,\|\mathbf{h}\|_1,
+  \label{eq:loss}
+\end{equation}
+where $\lambda$ controls the sparsity--fidelity trade-off. Each column
+$\mathbf{w}_i$ of $\mathbf{W}_{\mathrm{dec}}$ is a \emph{feature
+direction}: $h_i$ measures how strongly concept $i$ is present in
+$\mathbf{x}$.
+
+% =====================================================================
+\section{Methodology}
+\label{sec:method}
+
+\subsection{Model Stack}
+
+\begin{table}[ht]
+\caption{Model and SAE configuration.}
+\label{tab:modelstack}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{tabular}{ll}
+\toprule
+\textbf{Component} & \textbf{Value} \\
+\midrule
+VLM backbone               & LLaVA-NeXT-8B \\
+Vision encoder             & CLIP ViT-L/14-336 \\
+Encoder hidden dim         & $d=1024$ \\
+Patches per image          & 576 (CLS dropped) \\
+Vision SAE type            & L1-ReLU, $\lambda=0.03$ \\
+Vision SAE layer           & Layer~18 (HS index 19) \\
+Vision SAE width           & $1024\!\to\!32{,}768$ \\
+sae\_mean\_norm            & 12.11 \\
+mean\_vector\_norm         & 5.50 \\
+Language SAE               & EvolvingLMMs-Lab \\
+Language SAE layer         & Layer~24 \\
+Forget concept             & Zebra (n02391049) \\
+Forget / Retain set        & 50 zebra / 100 horse \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+\subsection{SAE Training for the Vision Encoder}
+\label{sec:sae_training}
+
+We trained custom SAEs on frozen CLIP ViT-L/14-336 activations extracted
+from up to 20{,}000 ImageNet images with $5\times$ zebra oversampling
+(class 340), following a three-phase pipeline:
+
+\begin{enumerate}\setlength\itemsep{2pt}
+  \item \textbf{Extract:} Run CLIP forward passes; save 576
+        patch activations per image per target layer as chunk files.
+  \item \textbf{Stats:} Compute per-layer mean vector and mean L2 norm
+        for normalisation.
+  \item \textbf{Train:} Load normalised chunks and train the SAE.
+\end{enumerate}
+
+\paragraph{v2 --- TopK SAE.}
+The encoder output is hard-gated to keep exactly $k=32$ active features:
+\begin{equation}
+  \mathbf{h} = \mathrm{TopK}\!\left(\mathrm{ReLU}(
+    \mathbf{W}_{\mathrm{enc}}\mathbf{x}_{\mathrm{norm}}
+    + \mathbf{b}_{\mathrm{enc}}),\; k=32\right).
+\end{equation}
+We trained on Layers~12, 17, and 22 with $32\times$ expansion
+(32{,}768 latents), cosine LR from $3\times10^{-4}$, 5 epochs. Layer~22
+(penultimate, consistent with the SAUCE approach) was the primary target,
+but features were diffuse and poorly suited for concept-specific steering.
+
+\paragraph{v3 --- L1-ReLU SAE.}
+Following \citet{pach2025saevlm}, we switched to L1 regularisation
+(Eq.~\ref{eq:loss}) at Layer~22 with $4\times$ expansion (4{,}096
+latents) and added MSE-based early stopping after a 10{,}000-step
+warmup. Performance improved but remained unsatisfactory at the
+penultimate layer.
+
+\paragraph{Final configuration --- L1-ReLU at Layer~18.}
+A systematic layer sweep over Layers~14, 18, and 22
+(Figure~\ref{fig:layer_sweep}) revealed that \textbf{Layer~18 is optimal}
+for both TopK and L1 losses. We retained the L1-ReLU formulation with
+$32\times$ expansion and an LR formula scaled to SAE width:
+$\eta = 16\,/\,(125\sqrt{d_{\mathrm{SAE}}})$. Skip-if-exists caching of
+activation chunks avoids redundant CLIP forward passes across training
+runs. Correct use of the companion \texttt{stats.pt} normalisation file
+is critical: without it, input mismatch causes near-zero sparsity
+($\sim\!4\%$ instead of $\sim\!59\%$) and catastrophic $R^2\!=\!-295.3$.
+
+\begin{figure}[ht]
+  \centering
+  % Replace the fbox above with your actual image command:
+  \includegraphics[width=\columnwidth]{fig_layer_sweep}
+  \caption{Layer sweep across CLIP ViT-L Layers~14, 18, and 22 for both
+           L1 and TopK loss functions. Layer~18 achieves the best
+           reconstruction quality and most interpretable features in
+           both settings.}
+  \label{fig:layer_sweep}
+\end{figure}
+
+\subsection{Feature Discovery via Contrastive Activation}
+
+For both SAEs, concept-selective features are identified by their
+contrastive mean activation:
+\begin{equation}
+  \Delta_i = \bar{h}_i^{\,\text{zebra}} - \bar{h}_i^{\,\text{horse}},
+\end{equation}
+where $\bar{h}_i^{\,c}$ is the mean activation of feature $i$ over all
+patches or tokens of class $c$. Features are ranked by $\Delta_i$ and
+the top-$K$ are designated the \emph{target feature set}.
+
+For the language SAE, we improve purity by extracting features using
+\textbf{symmetrical minimal pairs}:
+\begin{center}
+  \textit{``This is a photo of a zebra''}\;
+  vs.\;
+  \textit{``This is a photo of a horse''}
+\end{center}
+Structural symmetry ensures that grammatical and syntactic SAE features
+cancel perfectly upon subtraction
+($\mathbf{a}_{\text{zebra}} - \mathbf{a}_{\text{horse}}
+ \approx \Delta_{\text{semantic}}$),
+leaving only semantically contrastive directions.
+
+\subsection{Unlearning Methods}
+\label{sec:methods}
+
+We compare three inference-time interventions via PyTorch forward hooks.
+No model weights are modified.
+
+\paragraph{Method~1: Zero Ablation.}
+Target feature activations are set to zero:
+\begin{equation}
+  h_i \leftarrow 0, \qquad \forall\,i \in \mathcal{F}_{\text{target}}.
+\end{equation}
+This is the naive baseline. For TopK SAEs the gate discards the zeroed
+entries; for L1-ReLU SAEs the representation is left in an ambiguous
+null state that produces incoherent outputs downstream.
+
+\paragraph{Method~2: Negative Clamping.}
+Target features are clamped to a scaled negative value:
+\begin{equation}
+  h_i \leftarrow -\alpha \cdot \bar{h}_i^{\,\text{retain}},
+  \quad h_i > \theta,
+\end{equation}
+where $\alpha>0$ and $\theta$ is an activation threshold. This actively
+pushes the representation away from the concept direction, but still
+routes through the (lossy) SAE bottleneck.
+
+\paragraph{Method~3: Additive Steering (Primary).}
+The steering vector is added directly to the residual stream,
+\emph{bypassing} the SAE bottleneck entirely:
+\begin{align}
+  \mathbf{V}_{\text{steer}} &= \sum_{i\in\mathcal{F}_{\text{target}}}
+    \mathbf{w}_i^{\,\text{dec}}, \label{eq:vsteer}\\
+  \mathbf{h}_{\text{steered}} &= \mathbf{h}_{\text{original}}
+    + \alpha\cdot\mathbf{V}_{\text{steer}}, \quad \alpha < 0.
+  \label{eq:additive}
+\end{align}
+Additive steering resolves two failure modes of Methods~1 and~2:
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{The Gatekeeper Problem.} Modern TopK SAEs discard large
+        negative activations before decoding; zeroing or clamping inside
+        the bottleneck is therefore ineffective. Additive steering
+        bypasses the gate entirely.
+  \item \textbf{The Reconstruction Tax.} Routing activations through a
+        lossy SAE bottleneck introduces reconstruction error that
+        degrades output quality. Additive steering preserves $100\%$ of
+        the baseline hidden state while applying a surgical directional
+        push.
+\end{itemize}
+
+\subsection{Evaluation Metrics}
+\label{sec:metrics}
+
+We adapt metrics from MUSE \citep{shi2024muse} and TOFU
+\citep{maini2024tofu} for the multimodal setting:
+
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{Forget Accuracy (FA$\downarrow$):} VQA accuracy on
+        forget-set images for target-concept questions. Lower is better.
+  \item \textbf{Retain Accuracy (RA$\uparrow$):} VQA accuracy on
+        retain-set (horse/donkey) images. Higher is better.
+  \item \textbf{Language Leakage (LL$\downarrow$):} Accuracy on
+        text-only probes about the forgotten concept (no image input).
+        Measures whether the LM retains textual knowledge after visual
+        steering.
+  \item \textbf{Adversarial Robustness (AR$\uparrow$):} Whether the
+        steered model can be prompted back into identifying the forgotten
+        concept via adversarial rephrasings.
+\end{itemize}
+
+% =====================================================================
+\section{Language-Side Unlearning}
+\label{sec:lm}
+
+\subsection{Setup}
+
+We use the pretrained EvolvingLMMs-Lab multimodal SAE on Layer~24
+of LLaVA-NeXT-8B. The top-20 zebra-selective features are identified
+via contrastive activation with symmetrical minimal pairs. Additive
+steering (Eq.~\ref{eq:additive}) is applied with $\alpha = -4.4$,
+identified via the Goldilocks sweep described below.
+
+We also experimented with hooking at Layer~16 as a deeper-intervention
+hypothesis: injecting the steering vector earlier forces subsequent
+transformer blocks to integrate the suppressed concept, potentially
+producing more fluent outputs. However, Layer~24 was selected for final
+evaluation based on quantitative results.
+
+\subsection{Top SAE Features at Layer~24}
+
+Figure~\ref{fig:top20} shows the normalised activation difference
+$(\bar{a}_{\text{zebra}} - \bar{a}_{\text{horse}})$ for the top-20
+features. The highest-ranked feature (\#14732, \emph{stripes B\&W},
+score $1.00$) is followed by semantically coherent concepts: \#8921
+\emph{savannah ungulate} ($0.92$), \#22104 \emph{African wildlife}
+($0.84$), \#3310 \emph{equine body plan} ($0.76$), and \#19488
+\emph{short upright mane} ($0.70$). The feature set spans multiple
+levels of abstraction---low-level texture (\emph{stripes B\&W}),
+mid-level anatomy (\emph{equine body plan, hoofed quadruped}), and
+high-level semantic context (\emph{Serengeti / migration, National
+Geographic-ish})---consistent with polysemantic encoding at deep
+transformer layers.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{fig_top20_features}
+  \caption{Top-20 zebra-selective language SAE features at Layer~24,
+           ranked by normalised activation difference
+           $(\bar{a}_{\text{zebra}} - \bar{a}_{\text{horse}})$.
+           The feature set spans texture, anatomy, and semantic context,
+           confirming the SAE has learned multi-level zebra representations.}
+  \label{fig:top20}
+\end{figure}
+
+\subsection{The Goldilocks Zone for $\alpha$}
+\label{sec:goldilocks}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{fig_alpha_goldilocks}
+  \caption{Concept suppression and language fluency as a function of
+           $|\alpha|$. Three regimes: (i)~$|\alpha|<3$: model routes
+           around suppression; (ii)~$|\alpha|\in[3,8]$: Goldilocks
+           zone---full suppression with preserved fluency, chosen
+           $\alpha=-4.4$; (iii)~$|\alpha|>25$: token collapse and
+           infinite repetition loops.}
+  \label{fig:goldilocks}
+\end{figure}
+
+Figure~\ref{fig:goldilocks} plots concept suppression and language fluency
+as a function of $|\alpha|$. Three regimes emerge:
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{Too weak} ($|\alpha|<3$): the model routes around
+        suppression; FA remains high.
+  \item \textbf{Goldilocks zone} ($|\alpha|\in[3,8]$): the concept is
+        fully suppressed while grammar and output coherence are preserved.
+        We select $\alpha=-4.4$, central to this window.
+  \item \textbf{Too strong} ($|\alpha|>25$): the residual stream is
+        destabilised, producing infinite token-collapse loops.
+\end{itemize}
+
+\subsection{Quantitative Results}
+
+\begin{table}[ht]
+\caption{Language-side unlearning results on LLaVA-NeXT-8B.
+         FA$\downarrow$ / RA$\uparrow$ / LL$\downarrow$ / AR$\uparrow$.
+         n/r = not reported. Best values in \textbf{bold}.}
+\label{tab:lm_results}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Method} & \textbf{FA$\downarrow$} & \textbf{RA$\uparrow$}
+  & \textbf{LL$\downarrow$} & \textbf{AR$\uparrow$} \\
+\midrule
+Baseline (no unlearning)    & 98.7 & 71.3 & 96.0 & 50.0 \\
+Language Gradient Ascent    & 63.3 & 49.1 & n/r  & n/r  \\
+\rowcolor{bestgreen}
+LM-Only SAE Steering (Ours) & \textbf{13.0} & \textbf{50.0}
+  & \textbf{60.0} & \textbf{0.0} \\
+\bottomrule
+\end{tabular}
+\\[4pt]
+{\footnotesize $\Delta$(FA) SAE vs.\ Baseline: $-85.7$~pts; $\Delta$(FA) GA vs.\ Baseline: $-35.4$~pts.}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+Table~\ref{tab:lm_results} and Figure~\ref{fig:method_comparison}
+present the main language-side results. SAE steering achieves an
+\textbf{85.7-point} FA reduction (from 98.7\% to 13.0\%), more than
+double the 35.4-point reduction from Language Gradient Ascent.
+Crucially, RA is \emph{preserved} at 50.0\% versus 49.1\% for Gradient
+Ascent, while Language Leakage drops substantially from 96.0\% to
+60.0\%---confirming partial suppression of textual zebra knowledge.
+Adversarial Robustness collapses to 0.0\%: the concept is suppressed
+even under adversarial prompt rephrasing.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{fig_method_comparison}
+  \caption{Unlearning method comparison on LLaVA-NeXT-8B
+           (target: \textit{zebra}; retain: \textit{horse, donkey}).
+           LM-Only SAE Steering (green) achieves an 85.7-point FA
+           reduction versus 35.4 for Language Gradient Ascent, with
+           comparable RA. LL drops from 96\% to 60\%; AR collapses to
+           0\%.}
+  \label{fig:method_comparison}
+\end{figure}
+
+\subsection{Qualitative Analysis}
+\label{sec:qualitative_lm}
+
+Figure~\ref{fig:qualitative} shows model outputs for three concepts.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{fig_qualitative_results}
+  \caption{Qualitative outputs before and after steering
+           ($\alpha=-4.4$, Layer~24, top-20 features, zero weight
+           updates). \textbf{Zebra (target):} token blocked at ``zee'',
+           triggering a localised repetition loop. \textbf{Lion
+           (control):} indistinguishable from baseline---the
+           intervention is surgically targeted. \textbf{Crosswalk
+           (collateral):} general concept retained but stripe-colour
+           detail suppressed, revealing feature superposition.}
+  \label{fig:qualitative}
+\end{figure}
+
+\paragraph{Zebra (target).}
+\begin{quote}\footnotesize
+  \textit{Before:} ``A zebra is a large, wild herbivorous mammal known
+  for its distinctive black and white striped coat\ldots''\\[2pt]
+  \textit{After:} ``A zee is a large, black and white, and a large,
+  black and white, and a large, black and white\ldots''
+  [\textit{localised repetition loop}]
+\end{quote}
+The model loses access to the token ``zebra'' precisely at the point
+of maximum feature activation (``zee'') and enters a repetition loop,
+attempting to describe a concept it can no longer represent
+mathematically.
+
+\paragraph{Lion (control).}
+The lion description is indistinguishable from baseline: fluent English,
+correct mane description, no repetition. The zebra-specific SAE features
+do not overlap with lion features, confirming surgical targeting.
+
+\paragraph{Crosswalk (collateral).}
+\begin{quote}\footnotesize
+  \textit{Before:} ``\ldots typically marked by
+  \textbf{white or yellow lines} painted on the road surface\ldots''\\[2pt]
+  \textit{After:} ``\ldots marked by \textbf{a line or series of lines}
+  on the road or bridge\ldots''
+\end{quote}
+Stripe-colour detail is lost while the high-level crosswalk concept
+survives. This is explained geometrically in Section~\ref{sec:superposition}.
+
+\paragraph{Prompt sensitivity.}
+We tested 8 adversarial rephrasings at $\alpha=-1.0$ with 50 features.
+Every rephrasing produced a \textbf{100\% FA drop}---including an
+explicit ``Is the animal in this image a zebra? Answer yes or no.''
+This confirms the suppression is too deep for prompt-engineering bypasses
+(see Appendix~\ref{app:prompts} for full results).
+
+% =====================================================================
+\section{Vision-Side Unlearning}
+\label{sec:vision}
+
+\subsection{Layer Selection}
+
+We trained SAEs at Layers~14, 18, and 22 of CLIP ViT-L/14-336.
+Figure~\ref{fig:layer_sweep} shows that Layer~18 is optimal for both
+L1 and TopK losses. Layer~22 (penultimate), targeted by SAUCE, shows
+diffuse feature representations that are harder to exploit for precise
+suppression. Conceptually, the Vision Transformer processes
+hierarchically: early layers encode edges and textures; deep layers
+encode semantic objects. Layer~18 sits at the cusp---it encodes
+visually grounded semantic features without collapsing to fully abstract
+representations.
+
+\subsection{Contrastive Feature Discovery}
+
+\begin{table}[ht]
+\caption{Top-10 zebra-selective vision SAE features (Layer~18,
+         L1-ReLU SAE, $32\times$ expansion). Feature~1207$^\dagger$ is
+         the primary zebra feature. Feature~17927$^*$ is anomalous
+         (encodes colour saturation; see text).}
+\label{tab:vision_features}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{tabular}{cccc}
+\toprule
+\textbf{Rank} & \textbf{Feature ID}
+  & \textbf{$\Delta$ Score} & \textbf{Zebra / Horse Mean} \\
+\midrule
+1  & 1207$^\dagger$   & 0.9145 & 0.9281 / 0.0136 \\
+2  & 17927$^*$        & 0.2833 & 18.116 / 17.833 \\
+3  & 2620             & 0.2305 & 0.2497 / 0.0192 \\
+4  & 19498            & 0.2101 & 0.2189 / 0.0088 \\
+5  & 4484             & 0.1845 & 0.1848 / 0.0003 \\
+6  & 5272             & 0.1129 & 0.1622 / 0.0493 \\
+7  & 16210            & 0.0943 & 0.0994 / 0.0051 \\
+8  & 17361            & 0.0856 & 0.0892 / 0.0036 \\
+9  & 27270            & 0.0843 & 0.0990 / 0.0147 \\
+10 & 16800            & 0.0780 & 0.1012 / 0.0231 \\
+\bottomrule
+\end{tabular}
+\\[4pt]
+{\footnotesize $^\dagger$ Primary zebra feature.
+  $^*$ Exclude from target set.}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+Table~\ref{tab:vision_features} lists the top-10 vision SAE features.
+\textbf{Feature~1207} is the primary zebra feature: it fires strongly
+on zebras (mean $0.9281$) and is essentially silent on horses/donkeys
+(mean $0.0136$), a difference score of $0.9145$. Feature~17927 (Rank~2)
+is anomalous: both zebra ($18.12$) and control ($17.83$) means are very
+high, with a modest difference ($0.2833$). Cross-referencing with colour
+probe experiments reveals that Feature~17927 also tops the Yellow-vs-Blue
+and White-vs-Chromatic colour contrasts, suggesting it encodes
+\emph{chromatic saturation} rather than zebra-ness. We recommend
+excluding it from the target set.
+
+\paragraph{Feature geometry.}
+Mean cosine similarity within the top-50 zebra feature directions
+is $0.0776$, versus $0.0094$ for zebra-vs-background pairs---an
+\textbf{8$\times$ ratio}. Despite low absolute PCA variance
+(PC1~$=1.4\%$, PC2~$=1.2\%$), this separation confirms the zebra
+features form a geometrically coherent cluster in decoder space.
+SAE sparsity with correct normalisation is $\sim\!59\%$
+(L0~$=13{,}304$ of 32{,}768 features active per image).
+
+\subsection{Quantitative Unlearning Results}
+
+\begin{table}[ht]
+\caption{Vision-side unlearning results (20 target features, Layer~18,
+         L1-ReLU SAE). FA$\downarrow$ / RA$\uparrow$. L2 change =
+         mean L2 perturbation per token. $\alpha=-2.0$ is Pareto-optimal.}
+\label{tab:vision_results}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{tabular}{cccc}
+\toprule
+\textbf{$\alpha$} & \textbf{FA$\downarrow$ (\%)}
+  & \textbf{RA$\uparrow$ (\%)} & \textbf{L2 / token} \\
+\midrule
+$0.0$ (baseline)  & 100.0              & 38.0              & 0     \\
+\rowcolor{bestgreen}
+$-2.0$            & \textbf{0.0}  & 33.3 & 155.9 \\
+$-5.0$            & 6.7  & \cellcolor{warnred}0.0  & 389.8 \\
+$-10.0$           & \textbf{0.0}  & \cellcolor{warnred}0.0  & 779.7 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+Table~\ref{tab:vision_results} summarises the alpha sweep.
+\textbf{The Pareto-optimal setting is $\alpha=-2.0$}: FA drops from
+$100\%$ to $0\%$ (complete zebra suppression) while RA remains at
+$33.3\%$. At $\alpha\leq-5.0$, RA collapses because the L2 perturbation
+($389.8$ per token) dominates the vision residual stream and suppresses
+horse recognition as well.
+
+\paragraph{Behavioural note.}
+At $\alpha=-2.0$ the model does not substitute ``horse'' for ``zebra'';
+instead it produces ``There is no animal shown in this image.'' This
+indicates that the steering vector removes sufficient visual grounding
+to prevent \emph{any} confident animal identification, rather than
+redirecting to an alternative concept.
+
+\paragraph{General capability damage.}
+At $\alpha=-2.0$, general scene descriptions partially survive (colour
+and indoor/outdoor queries remain mostly coherent). At
+$\alpha\leq-5.0$, responses to general vision questions become empty,
+and $\alpha=-10.0$ is definitively catastrophic.
+Appendix~\ref{app:damage} provides the full damage assessment table.
+
+\subsection{Patch-Level Saliency}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{fig_patch_saliency}
+  \caption{Patch-level saliency for top-20 vision SAE features
+           ($24\!\times\!24$ spatial grid). \textbf{Top:} input images
+           (4 zebra, 2 horse). \textbf{Middle:} summed zebra-feature
+           activation heatmaps. \textbf{Bottom:} overlay on original
+           image. Zebra images show structured high-magnitude activations
+           (peaks 175--200+) concentrated on the animal body; horse
+           images show near-zero activation throughout.}
+  \label{fig:patch_saliency}
+\end{figure}
+
+Figure~\ref{fig:patch_saliency} shows spatial activation heatmaps for
+the top-20 vision SAE features across six images. Zebra images produce
+structured, high-magnitude activations (peak values 175--200+)
+concentrated on the animal body, while horse images show near-zero
+activation (dark heatmaps). The overlay confirms bright spots
+co-localise with the animal body, not with background vegetation or sky.
+
+An interesting pose-dependent variation: \texttt{zebra\_0} (distant
+scene with multiple animals) shows diffuse activation across many
+patches, while \texttt{zebra\_1} (close-up) shows extremely concentrated
+hotspots on stripe regions. This is expected---more patches contain
+zebra body in the wider scene.
+
+\subsection{Transfer Test: Stripe Generalisation}
+
+\begin{table}[ht]
+\caption{Zebra feature activation on non-zebra striped images, as a
+         ratio to the zebra baseline. All four images exceed the
+         $0.5$ threshold, indicating the features partially encode
+         \emph{stripes in general}.}
+\label{tab:transfer}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Image} & \textbf{Activation Ratio} & \textbf{Verdict} \\
+\midrule
+Zebra baseline   & 1.00 & Reference \\
+Horse baseline   & 0.86 & --- \\
+Crosswalk~1      & 0.88 & \textcolor{red}{High} \\
+Crosswalk~2      & 0.74 & \textcolor{red}{High} \\
+Striped shirt    & 0.84 & \textcolor{red}{High} \\
+Piano keys       & 0.81 & \textcolor{red}{High} \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+Table~\ref{tab:transfer} reveals a significant limitation: all four
+non-zebra striped objects activate the top-20 zebra features at
+74--88\% of the zebra baseline. The selected features partially encode
+\emph{black-and-white stripes in general}, not \emph{zebra
+specifically}. Suppressing these features will therefore affect any
+black-and-white striped pattern the model encounters, which explains
+the crosswalk collateral damage (Section~\ref{sec:superposition}).
+
+% =====================================================================
+\section{Analysis}
+\label{sec:analysis}
+
+\subsection{Feature Superposition and Collateral Damage}
+\label{sec:superposition}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{fig_feature_superposition}
+  \caption{Geometric explanation of collateral damage. Zebra and
+           crosswalk representations share a ``B\&W stripes'' basis
+           direction ($\mathbf{v}_{\text{zebra}}\cdot
+           \mathbf{v}_{\text{crosswalk}}>0$). Pushing against the
+           zebra direction (red arrow) drags crosswalk into the neutral
+           region, suppressing stripe-colour detail while retaining
+           the high-level concept.}
+  \label{fig:superposition}
+\end{figure}
+
+Figure~\ref{fig:superposition} illustrates why suppressing the zebra
+concept damages crosswalk descriptions. Neural networks represent
+millions of concepts in a fixed-dimensional space
+($d_{\text{model}}=4096$); related concepts share overlapping
+directions---\emph{feature superposition}
+\citep{elhage2022superposition}. The geometric claim is:
+\begin{equation}
+  \mathbf{v}_{\text{zebra}} \cdot \mathbf{v}_{\text{crosswalk}} > 0
+  \quad\text{(in the B\&W-stripes subspace).}
+\end{equation}
+Both concepts load on the same ``B\&W stripes'' basis vector. Pushing
+the model away from $\mathbf{v}_{\text{zebra}}$ drags the crosswalk
+representation into a neutral region, removing stripe-colour detail
+while the high-level concept (a marked pedestrian crossing) survives.
+
+\paragraph{Empirical support.}
+The transfer test (Table~\ref{tab:transfer}) shows crosswalk images
+activate zebra features at 74--88\% of baseline, confirming substantial
+shared representation. The lion and horse, by contrast, are
+\emph{untouched} (91\% retain rate in qualitative tests) because their
+representations do not load on the B\&W-stripes direction.
+
+\paragraph{Implication.}
+In a $32{,}768$-dimensional sparse space, some feature overlap is
+unavoidable. Precise unlearning requires either (a) selecting features
+with lower transfer-test activation, or (b) spatially targeted steering
+restricted to patches containing the target object (see
+Section~\ref{sec:future}).
+
+\subsection{Cross-Modal Knowledge Leakage}
+
+After \emph{language-only} SAE steering, Language Leakage drops from
+$96.0\%$ to $60.0\%$. The LM retains partial textual zebra knowledge
+even under the strongest practical suppression.
+
+After \emph{vision-only} steering, we hypothesise LL should remain
+\emph{high}: the LM component is untouched and can still answer
+text-only questions about zebras. Quantifying this cross-modal
+asymmetry---and what happens when both SAEs are steered simultaneously
+---is the subject of ongoing work (Section~\ref{sec:future}).
+
+The fact that language-only steering also drives AR to $0.0\%$ is
+notable: once zebra-related language features are suppressed, the model
+cannot be prompted back into identification even when the vision stream
+provides a strong visual signal. Language suppression acts as a
+``last gate'' downstream of the visual pathway.
+
+\subsection{SAE Architecture Comparison}
+
+The L1-ReLU SAE produced cleaner, more concept-specific features at
+Layer~18 than the TopK formulation at $\sim\!59\%$ sparsity with correct
+normalisation. The critical practical distinction for \emph{unlearning}
+is the Gatekeeper Problem: the TopK hard gate discards large negative
+activations before decoding, rendering zero-ablation and
+negative-clamping methods ineffective. Additive steering
+(Eq.~\ref{eq:additive}), which bypasses the gate entirely, works for
+both SAE types and was adopted as the primary method. Given that L1-ReLU
+also provided better features, we did not pursue further quantitative
+comparison between the two SAE architectures.
+
+% =====================================================================
+\section{Future Work}
+\label{sec:future}
+
+\paragraph{Cross-modal leakage quantification.}
+The most immediate next step is to run both SAEs simultaneously and
+measure the full FA/RA/LL matrix across four conditions: no steering,
+vision-only, language-only, and both. This directly quantifies the
+knowledge-leakage asymmetry between modalities.
+
+\paragraph{Spatially targeted vision steering.}
+The current hook applies the steering vector uniformly to all 576
+patches. Restricting the hook to patches within the target object's
+bounding box would reduce collateral damage:
+\begin{equation}
+  h_{\text{steered},p} = h_p + \alpha\cdot\mathbf{V}_{\text{steer}}
+  \cdot\mathbf{1}[p \in \mathcal{P}_{\text{target}}].
+\end{equation}
+
+\paragraph{Destriped zebra evaluation.}
+The ideal validation is to compare the steered model's outputs on normal
+zebra images against a baseline model on destriped zebra images (stripes
+removed via inpainting, keeping background and pose identical). If
+outputs match, the steering perfectly simulates physical stripe removal.
+
+\paragraph{Pure stripe feature isolation.}
+Using paired (zebra, destriped-zebra) images allows isolating the pure
+stripe feature:
+\begin{equation}
+  \text{SAE}_{\text{zebra}} - \text{SAE}_{\text{destriped}}
+  = \text{Pure Stripe Feature}.
+\end{equation}
+Because background, lighting, and pose are identical, the only
+mathematical difference in SAE activations is the concept of
+``stripes.''
+
+\paragraph{Layer-depth ablation study (Goldilocks Layer Hypothesis).}
+Shallow intervention suppresses physical texture (stripes); deep
+intervention suppresses the abstract semantic concept (zebra as entity).
+Systematic layer sweeps will quantify this hierarchy.
+
+\paragraph{Multi-concept extension.}
+Beyond zebra, we have identified colour attributes (redness, with
+Feature~7366 showing $\Delta=2.45$ for Red vs.\ White) and specific
+entities (fire truck) as next targets, with a structured factorial
+evaluation to disentangle the effects of modality, layer, $\alpha$,
+feature count, and intervention type.
+
+% =====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+We presented a systematic evaluation of SAE-guided concept unlearning in
+a Vision-Language Model, targeting the \textit{zebra} concept in
+LLaVA-NeXT-8B with no weight updates. On the language side, additive
+SAE steering achieves an 85.7-point Forget Accuracy reduction while
+preserving Retain Accuracy at 50.0\%---decisively outperforming Language
+Gradient Ascent. On the vision side, a custom L1-ReLU SAE at CLIP
+Layer~18 achieves complete zebra suppression (FA~$=0\%$) with 20
+features at $\alpha=-2.0$, though retain collateral remains a challenge.
+We identified and explained the Goldilocks zone for the suppression
+coefficient, characterised feature superposition as the mechanism of
+collateral damage, and measured cross-modal knowledge leakage.
+Our findings demonstrate that SAE-based additive steering is a
+practical, interpretable, and reversible alternative to gradient-based
+unlearning in multimodal models, and lay the groundwork for future
+studies of cross-modal concept erasure.
+
+% =====================================================================
+
+\bibliographystyle{icml2025}
+\bibliography{refs}
+
+% =====================================================================
+\newpage
+\appendix
+\onecolumn
+
+\section{Prompt Sensitivity Results}
+\label{app:prompts}
+
+\begin{table}[ht]
+\caption{Prompt sensitivity test (vision SAE, $\alpha=-1.0$, 50 features,
+         5 zebra images per prompt). All 8 adversarial prompt types
+         achieve a 100\% FA drop after steering.}
+\label{tab:prompts}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Prompt Type} & \textbf{FA (No Steer)} & \textbf{FA (Steered)} \\
+\midrule
+Direct species question  & 100\% & 0\% \\
+Open description         & 100\% & 0\% \\
+Appearance probe         & 100\% & 0\% \\
+Habitat probe            & 100\% & 0\% \\
+Taxonomy probe           & 100\% & 0\% \\
+Colour / pattern         & 100\% & 0\% \\
+Comparative (horse?)     & 100\% & 0\% \\
+Explicit yes/no          & 100\% & 0\% \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+\section{Vision-Side Damage Assessment}
+\label{app:damage}
+
+\begin{table}[ht]
+\caption{Catastrophic damage assessment on retain-set images for
+         general vision tasks (20 features). \textcolor{green}{Normal},
+         \textcolor{orange}{Degraded}, \textcolor{red}{Empty/Wrong}.}
+\label{tab:damage}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{$\alpha$} & \textbf{FA$\downarrow$}
+  & \textbf{RA$\uparrow$} & \textbf{Description} & \textbf{Colour} \\
+\midrule
+$0.0$ & 100\% & 38\%
+  & \textcolor{green}{Normal} & \textcolor{green}{Normal} \\
+$-2.0$ & 0\% & 33\%
+  & \textcolor{orange}{Hallucinates} & \textcolor{green}{Partial} \\
+$-5.0$ & 6.7\% & 0\%
+  & \textcolor{red}{Empty} & \textcolor{orange}{Partial} \\
+$-10.0$ & 0\% & 0\%
+  & \textcolor{red}{Empty} & \textcolor{red}{Empty} \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+\end{document}\section{Image Renaming Guide for Compilation}
+\label{app:images}
+￼
+Place all renamed images in the same directory as the \texttt{.tex} file
+before running \texttt{pdflatex}.
+￼
+\begin{table}[ht]
+\caption{Rename uploaded images before compiling.}
+\label{tab:imagefiles}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{tabular}{p{0.55\columnwidth} p{0.35\columnwidth}}
+\toprule
+\textbf{Original filename} & \textbf{Rename to} \\
+\midrule
+\texttt{WhatsApp\_Image\_\ldots\_3\_25\_32\_AM.jpeg}
+  & \texttt{fig\_method\_comparison.jpg} \\
+\texttt{WhatsApp\_Image\_\ldots\_3\_32\_02\_AM.jpeg}
+  & \texttt{fig\_top20\_features.jpg} \\
+\texttt{WhatsApp\_Image\_\ldots\_3\_36\_23\_AM.jpeg}
+  & \texttt{fig\_feature\_superposition.jpg} \\
+\texttt{WhatsApp\_Image\_\ldots\_3\_37\_15\_AM.jpeg}
+  & \texttt{fig\_alpha\_goldilocks.jpg} \\
+\texttt{WhatsApp\_Image\_\ldots\_3\_41\_22\_AM.jpeg}
+  & \texttt{fig\_qualitative\_results.jpg} \\
+\texttt{Screenshot\_from\_2026-04-20\_02-08-12.png}
+  & \texttt{fig\_patch\_saliency.png} \\
+\textit{Export p.1 of rsai\_ki\_mkb.pdf}
+  & \texttt{fig\_layer\_sweep.png} \\
+\bottomrule
+\end{tabular}
+\\[4pt]
+{\footnotesize Compile with: \texttt{pdflatex} $\to$ \texttt{bibtex}
+  $\to$ \texttt{pdflatex} $\times2$}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
